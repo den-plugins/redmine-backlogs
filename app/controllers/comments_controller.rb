@@ -8,7 +8,7 @@ class CommentsController < ApplicationController
                                           :include => [:user, :details], 
                                           :order => "#{Journal.table_name}.created_on DESC",
                                           :conditions => "notes!=''")
-    render :partial => "comment", :collection => @journals, :as => :journal
+    render :layout => false
   end
   
   def create
