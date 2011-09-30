@@ -31,6 +31,6 @@ Redmine::Plugin.register :redmine_backlogs do
        :backlogs, 
        { :controller => 'backlogs', :action => :index }, 
        :caption => 'Backlogs', 
-       :after   => :roadmap, 
+       :after   => :burndown, 
        :param   => :project_id
 end
