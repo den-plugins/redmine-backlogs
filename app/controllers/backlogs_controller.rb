@@ -10,6 +10,7 @@ class BacklogsController < ApplicationController
     @item_template = Item.new
     @backlogs      = Backlog.find_by_project(@project)
     @hide_closed_backlogs = cookies[:hide_closed_backlogs]=="true"
+    @show_accepted_backlogs = params[:show_accepted_backlogs] ? params[:show_accepted_backlogs] : false
   end
 
   def show

@@ -79,12 +79,23 @@ THE SOFTWARE.
 
 #hide_closed_backlogs_container {
   display: block;
-  left: 190px;
+  left: 200px;
+  position: absolute;
+  top: 7px;
+}
+
+#show_accepted_backlogs_container {
+  display: block;
+  left: 350px;
   position: absolute;
   top: 7px;
 }
 
 #hide_closed_backlogs {
+  margin-top: -4px;
+}
+
+#show_accepted_backlogs {
   margin-top: -4px;
 }
 
