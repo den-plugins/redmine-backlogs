@@ -11,6 +11,7 @@ class BacklogsController < ApplicationController
     @backlogs      = Backlog.find_by_project(@project)
     @hide_closed_backlogs = cookies[:hide_closed_backlogs]=="true"
     @show_accepted_backlogs = params[:show_accepted_backlogs] ? params[:show_accepted_backlogs] : false
+    @back = url_for(:controller => 'backlogs', :action => 'index')
   end
 
   def show
