@@ -3,6 +3,9 @@
     <%= javascript_include_tag  'main', 'backlog', 'item', 'task', :plugin => 'redmine_backlogs', :cache => 'backlogsjs/all' %>
 <% end %>
 <div class="backlog_toolbar">
+  <p class="contextual">
+    <%= link_to l(:label_feature_new), { :controller => 'custom_issues' , :action => 'new', :project_id => @project, :tracker_id => 2, :back_to => @back }, :class => 'b-icon icon-add' %>
+  </p>
   <select id="move_items" class="actions">
     <option>Move selected items to...</option>
     <%- @backlogs.each do |backlog| %>

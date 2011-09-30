@@ -74,14 +74,13 @@ THE SOFTWARE.
   height: 24px;
   margin: 3px 0px 10px 0px;
   position: relative;
-  width: 1130px;
+  width: 100%;
 }
 
 #hide_closed_backlogs_container {
   display: block;
-  left: 190px;
-  position: absolute;
-  top: 7px;
+  float: left;
+  margin-top: 6px;
 }
 
 #hide_closed_backlogs {
@@ -96,9 +95,19 @@ THE SOFTWARE.
 }
 
 .backlog_toolbar select {
-  position: absolute;
-  left: 5px;
-  top: 2px;
+  float: left;
+  margin: 3px;
+}
+
+.b-icon {
+  background-position: 0% 40%;
+  background-repeat: no-repeat;
+  background-color: white;
+  margin-right: 6px;
+  margin-bottom: 0;
+  padding: 2px 5px 2px 20px;
+  -moz-border-radius: 2px 2px 0 0;
+  -webkit-border-radius: 2px 2px 0 0;
 }
 
 /***************************************
