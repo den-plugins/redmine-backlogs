@@ -89,6 +89,10 @@ class Backlog < ActiveRecord::Base
     end
     total_points
   end
+
+  def self.find_product_backlog(project)
+    find(:first, :include => :version, :conditions =>"versions.project_id = #{project.id} AND versions.name = 'Product Backlog'")
+  end
   
   
 end

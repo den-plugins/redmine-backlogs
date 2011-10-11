@@ -22,4 +22,8 @@ module BacklogsHelper
     issue.fixed_version.nil? ? "-" : issue.fixed_version.name
   end
 
+  def product_backlog_id
+    @product_backlog ? @product_backlog.id : nil
+  end
+
 end

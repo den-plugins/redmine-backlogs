@@ -24,7 +24,8 @@
 </div>
 
 <div id="backlog_body">
-  <%- @backlogs.each do |backlog| %>
+  <% backlogs = @backlogs.reject {|b| b if b.id == product_backlog_id} %>
+  <%- backlogs.each do |backlog| %>
     <%- if backlog.version.state and (!backlog.version.state.eql?(3) or @show_accepted_backlogs) %>
     <%- unless @hide_closed_backlogs && backlog.is_closed? %>
     <div class="backlog <%= backlog.is_closed? ? "closed" : "" %>">
@@ -37,7 +38,7 @@
 
   <div class="backlog main">
     <%= render :partial => "header", :locals => { :backlog => nil } %>
-    <ul><%= render :partial => "items/item", :collection => @items.select{|item| item.backlog_id==0} %></ul>
+    <ul><%= render :partial => "items/item", :collection => @items.select{|item| item.backlog_id==0 or item.backlog_id == product_backlog_id} %></ul>
   </div>
 </div>
 

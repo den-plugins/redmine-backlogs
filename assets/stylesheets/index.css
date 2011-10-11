@@ -78,25 +78,20 @@ THE SOFTWARE.
 }
 
 #hide_closed_backlogs_container {
-  display: block;
-  left: 200px;
-  position: absolute;
-  top: 7px;
+  display: inline-block;
+  float: left;
+  padding: 4px;
 }
 
 #show_accepted_backlogs_container {
-  display: block;
-  left: 350px;
-  position: absolute;
-  top: 7px;
+  display: inline-block;
+  float: left;
+  padding: 4px;
 }
 
-#hide_closed_backlogs {
-  margin-top: -4px;
-}
-
-#show_accepted_backlogs {
-  margin-top: -4px;
+#move_items {
+  display: inline-block;
+  float: left;
 }
 
 #backlog_body {
