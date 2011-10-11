@@ -77,10 +77,9 @@ THE SOFTWARE.
   width: 100%;
 }
 
-#hide_closed_backlogs_container {
+#select_backlog {
   display: inline-block;
   float: left;
-  padding: 4px;
 }
 
 #show_accepted_backlogs_container {

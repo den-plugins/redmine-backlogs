@@ -56,8 +56,9 @@ class Backlog < ActiveRecord::Base
   end
   
 
-  def self.find_by_project(project)
-    find(:all, :include => :version, :conditions => "versions.project_id=#{project.id}", :order => "versions.effective_date ASC, versions.id ASC")
+  def self.find_by_project(project, excluded_state)
+    conditions = "versions.project_id=#{project.id} AND versions.name <> 'Product Backlog'".concat((!excluded_state.nil? ? " AND (versions.state IS NULL OR versions.state <> #{excluded_state})" : ""))
+    return find(:all, :include => :version, :conditions => conditions, :order => "versions.effective_date ASC, versions.id ASC")
   end
   
   def self.update(params)

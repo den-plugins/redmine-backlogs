@@ -13,9 +13,20 @@
     <%- end %>
     <option value="0">&nbsp;&nbsp;&nbsp;&nbsp;Main Backlog</option>
   </select>
+  <% form_tag url_for(:controller => "backlogs", :action => "index", 
+                 :project_id => @project, :show_accepted_backlogs => @show_accepted_backlogs), :id => "select_backlog" do %>
+    <%= select_tag "backlog", ["<option>Select an Iteration to show</option>"] << options_from_collection_for_select(@backlogs, "id", "name"),
+                      :onchange => "this.form.submit();" %>
+  <% end %>
+  <!--<select id="select_backlog" class="actions">
+    <option>Select an Iteration to show.</option>
+    <%- @backlogs.each do |backlog| %>
+    <option value="<%= backlog.id %>">&nbsp;&nbsp;&nbsp;&nbsp;<%= backlog.version.name %></option>
+    <%- end %>
+  </select>
   <div id="hide_closed_backlogs_container">
     <input type="checkbox" id="hide_closed_backlogs"/> Hide closed backlogs
-  </div>
+  </div>-->
   <div id="show_accepted_backlogs_container">
     <% form_for :backlogs, @backlogs, :url => {:controller => "backlogs", :action => "index", :project_id => @project} do |f| %>
       <%= check_box_tag "show_accepted_backlogs", nil, @show_accepted_backlogs, :onchange => "this.form.submit();" %> Show accepted backlogs
@@ -24,17 +35,25 @@
 </div>
 
 <div id="backlog_body">
-  <% backlogs = @backlogs.reject {|b| b if b.id == product_backlog_id} %>
-  <%- backlogs.each do |backlog| %>
-    <%- if backlog.version.state and (!backlog.version.state.eql?(3) or @show_accepted_backlogs) %>
-    <%- unless @hide_closed_backlogs && backlog.is_closed? %>
-    <div class="backlog <%= backlog.is_closed? ? "closed" : "" %>">
-      <%= render :partial => "header", :locals => { :backlog => backlog } %>
-      <ul><%= render :partial => "items/item", :collection => @items.select{|item| item.backlog_id==backlog.id} %></ul>
+  <%# backlogs = @backlogs.reject {|b| b if b.id == product_backlog_id} %>
+  <% unless @backlog  %>
+    <%- @backlogs.each do |backlog| %>
+      <%# if backlog.version.state and (!backlog.version.state.eql?(3) or @show_accepted_backlogs) %>
+      <%- if backlog.version.state %>
+      <%# unless @hide_closed_backlogs && backlog.is_closed? %>
+      <div class="backlog <%= backlog.is_closed? ? "closed" : "" %>">
+        <%= render :partial => "header", :locals => { :backlog => backlog } %>
+        <ul><%= render :partial => "items/item", :collection => @items.select{|item| item.backlog_id==backlog.id} %></ul>
+      </div>
+      <%# end %>
+      <%- end %>
+    <%- end %>
+  <% else %>
+    <div class="backlog <%= @backlog.is_closed? ? "closed" : "" %>">
+      <%= render :partial => "header", :locals => { :backlog => @backlog } %>
+      <ul><%= render :partial => "items/item", :collection => @items.select{|item| item.backlog_id==@backlog.id} %></ul>
     </div>
-    <%- end %>
-    <%- end %>
-  <%- end %>
+  <% end %>
 
   <div class="backlog main">
     <%= render :partial => "header", :locals => { :backlog => nil } %>

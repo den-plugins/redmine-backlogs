@@ -8,9 +8,10 @@ class BacklogsController < ApplicationController
   def index
     @items         = Item.find_by_project(@project)
     @item_template = Item.new
-    @backlogs      = Backlog.find_by_project(@project)
+    @backlogs      = Backlog.find_by_project(@project, (params[:show_accepted_backlogs] ? nil : 3))
     @product_backlog = Backlog.find_product_backlog(@project)
-    @hide_closed_backlogs = cookies[:hide_closed_backlogs]=="true"
+    @backlog = Backlog.find(params[:backlog]) if params[:backlog]
+#    @hide_closed_backlogs = cookies[:hide_closed_backlogs]=="true"
     @show_accepted_backlogs = params[:show_accepted_backlogs] ? params[:show_accepted_backlogs] : false
     @back = url_for(:controller => 'backlogs', :action => 'index')
   end
