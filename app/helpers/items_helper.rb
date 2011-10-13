@@ -11,7 +11,7 @@ module ItemsHelper
   end
   
   def description_or_empty(item)
-    item.new_record? ? "" : textilizable(item.issue, :description)
+    item.new_record? ? "" : textilizable(h(item.issue.description))
   end
   
   def element_id_or_empty(item)
@@ -49,7 +49,7 @@ module ItemsHelper
   end
 
   def textile_description_or_empty(item)
-    item.new_record? ? "" : item.issue.description
+    item.new_record? ? "" : h(item.issue.description)
   end
 
   def tracker_id_or_empty(item)
