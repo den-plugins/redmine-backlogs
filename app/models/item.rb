@@ -92,7 +92,7 @@ class Item < ActiveRecord::Base
   end
 
   def self.find_by_project(project)
-    find(:all, :include => :issue, :conditions => "issues.project_id=#{project.id} and parent_id=0", :order => "position ASC")
+    items = find(:all, :include => :issue, :conditions => "issues.project_id=#{project.id} and parent_id=0", :order => "position ASC")
   end
 
   def self.remove_with_issue(issue)
