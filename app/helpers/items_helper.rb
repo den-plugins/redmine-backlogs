@@ -59,4 +59,13 @@ module ItemsHelper
   def tracker_name_or_empty(item)
     item.new_record? ? "" : item.issue.tracker.name
   end
+  
+  def node_level(issue)
+    l = 0
+    until issue.parent.nil?
+      l += 1
+      issue = issue.parent_issue
+    end
+    l
+  end
 end

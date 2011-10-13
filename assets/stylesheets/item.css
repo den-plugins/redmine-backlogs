@@ -651,3 +651,14 @@ li.item.task ul.item_tasks {
 li.item.task div.discussion {
   display: none;
 }
+
+/***************************************
+  HIERARCHICAL VIEW STYLES
+***************************************/
+
+ul.children {width: inherit;}
+li.child {width: inherit;}
+div.child-subject {
+  background-image: url(../images/corner.png);
+  background-repeat: no-repeat;
+}

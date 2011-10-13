@@ -120,4 +120,17 @@ class Item < ActiveRecord::Base
     insert_at determine_new_position(params)
   end
   
+  def child?
+    issue.parent.present?
+  end
+  
+  #TODO: Refactor query
+  def children
+    if issue.children.any?
+      arr = issue.children.collect {|c| c.id }.join(', ')
+      items = Item.find(:all, :conditions => ["issue_id in (#{arr}) "] )
+    else
+      []
+    end
+  end
 end

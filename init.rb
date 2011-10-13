@@ -5,6 +5,7 @@ require 'issue_patch'
 require 'version_patch'
 require 'dispatcher'
 require 'weekdays'
+require 'custom_issue_patch'
 
 Dispatcher.to_prepare do
   Issue.send(:include, Backlogs::IssuePatch)

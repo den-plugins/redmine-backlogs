@@ -1,0 +1,49 @@
+<% if !item.new_record? && item.children.any? %>
+  <ul class="children">
+  <% item.children.each do |child| %>
+    <% n = node_level child.issue %>
+    <li class="item child <%= mark_if_closed(child) %> <%= mark_if_task(child) %>" id="<%= element_id_or_empty(child) %>" style="margin-left: -<%=n*40%>px; ">
+      <div class="controls">
+        <div class="more">more</div>
+        <div class="talk">talk</div>
+      </div>
+      <span class="body">
+        <input type="checkbox" class="checkbox"/>
+        <div class="spinner"> </div>
+        <div class="id"><%= record_id_or_empty(child) %></div>
+        <div class="issue_id_container"><%= issue_id_or_default(child) %></div>
+        <div class="subject editable child-subject" fieldname="subject" modelname="issue" style="background-position: <%= n*10 + (5*(n-1)) %>px 0px; text-indent: <%= n*20 %>px;">
+          <%= h child.subject %>
+        </div>
+        <div class="assigned_to_id editable sel" fieldname="assigned_to_id" modelname="issue">
+          <div class="t"><%= assignee_name_or_empty(child) %></div>
+          <div class="v"><%= assigned_to_id_or_empty(child) %></div>
+        </div>
+        <div class="issue status_id editable sel" fieldname="status_id" modelname="issue">
+          <div class="t"><%= status_label_or_default(child) %></div>
+          <div class="v"><%= status_id_or_default(child) %></div>
+        </div>
+        <div class="points editable" fieldname="points" modelname="item"><%= points_or_empty(child) %></div>
+        <div class="description editable ta" fieldname="description" modelname="issue">
+          <div class="textile"><%= textile_description_or_empty(child) %></div>
+          <div class="html"><%= description_or_empty(child) %></div>
+        </div>
+        <div class="tracker_id editable sel" fieldname="tracker_id" modelname="issue">
+          <div class="t"><%= tracker_name_or_empty(child) %></div>
+          <div class="v"><%= tracker_id_or_empty(child) %></div>
+        </div>
+      </span><!-- body -->
+      <div class="discussion">
+        <div class="d_spinner"> </div>
+        <form><textarea class="comment"> </textarea></form>
+        <div class="comments">
+        </div>
+      </div>
+      <button class="add_task">+</button>
+      <ul class="item_tasks loading">
+      </ul>
+    </li>
+    <%= render :partial => "items/children_list", :locals => {:item => child} %>
+  <% end %>
+  </ul>
+<% end %>
