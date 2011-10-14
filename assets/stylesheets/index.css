@@ -95,7 +95,9 @@ THE SOFTWARE.
 
 #backlog_body {
   position: relative;
-  width: 1130px;
+  padding-left: 10px;
+  float: left;
+/*  width: 1130px;*/
 /*  border: 1px solid #333;*/
 /*  overflow: visible;*/
 }
@@ -121,15 +123,14 @@ THE SOFTWARE.
 ***************************************/
 .backlog {
   width: 700px;
-  float: left;
 }
 
 .backlog.main {
-  float: right;
+  float: left;
   height: 100%;
   margin: 0px;
-  right: 0px;
-  top: 0px;
+/*  right: 0px;*/
+/*  top: 0px;*/
   width: 420px;
 }
 

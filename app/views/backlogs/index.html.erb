@@ -28,6 +28,11 @@
   </div>
 </div>
 
+<div class="backlog main">
+  <%= render :partial => "header", :locals => { :backlog => nil } %>
+  <ul><%= render :partial => "items/item", :collection => @items.select{|item| item.backlog_id==0 or item.backlog_id == product_backlog_id} %></ul>
+</div>
+
 <div id="backlog_body">
   <%# backlogs = @backlogs.reject {|b| b if b.id == product_backlog_id} %>
   <% unless @backlog  %>
@@ -48,11 +53,7 @@
       <ul><%= render :partial => "items/item", :collection => @items.select{|item| item.backlog_id==@backlog.id} %></ul>
     </div>
   <% end %>
-
-  <div class="backlog main">
-    <%= render :partial => "header", :locals => { :backlog => nil } %>
-    <ul><%= render :partial => "items/item", :collection => @items.select{|item| item.backlog_id==0 or item.backlog_id == product_backlog_id} %></ul>
-  </div>
+  
 </div>
 
 <div id="item_template">
