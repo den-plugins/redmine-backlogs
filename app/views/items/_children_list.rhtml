@@ -13,9 +13,7 @@
         <div class="id"><%= record_id_or_empty(child) %></div>
         <div class="issue_id_container"><%= issue_id_or_default(child) %></div>
         <% width = (item.backlog_id==0 or item.backlog_id == product_backlog_id) ? (310 - (n*20) - 15) : (388 - (n*20) - 15) %>
-        <div class="subject editable child-subject" fieldname="subject" modelname="issue" style="margin-left: <%= n*20 %>px; width: <%= width %>px">
-          <%= h child.subject %>
-        </div>
+        <div class="subject editable child-subject" fieldname="subject" modelname="issue" style="margin-left: <%= n*20 %>px; width: <%= width %>px"><%= h child.subject %></div>
         <div class="assigned_to_id editable sel" fieldname="assigned_to_id" modelname="issue">
           <div class="t"><%= assignee_name_or_empty(child) %></div>
           <div class="v"><%= assigned_to_id_or_empty(child) %></div>
