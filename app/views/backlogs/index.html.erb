@@ -14,7 +14,7 @@
         <option value="<%= backlog.id %>">&nbsp;&nbsp;&nbsp;&nbsp;<%= backlog.version.name %></option>
       <% end %>
     <%- end %>
-    <option value="0">&nbsp;&nbsp;&nbsp;&nbsp;Product Backlog</option>
+    <option value="0">&nbsp;&nbsp;&nbsp;&nbsp;Product Backlogs</option>
   </select>
   <% form_tag url_for(:controller => "backlogs", :action => "index", 
                  :project_id => @project, :show_accepted_backlogs => @show_accepted_backlogs), :id => "select_backlog" do %>

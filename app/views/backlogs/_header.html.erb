@@ -1,7 +1,7 @@
 <div class="header">
   <div class="spinner"> </div>  
   <%- if backlog.nil? %>
-    <div class="name">Product Backlog</div>
+    <div class="name">Product Backlogs</div>
     <%= select_tag :new_item_button, options_for_select( [["New...", 0]] + @project.trackers.collect {|t| [t.name, t.id]} ) %>
     <div class="id">0</div>
   <%- else %>
