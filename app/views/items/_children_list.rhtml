@@ -1,8 +1,8 @@
 <% if !item.new_record? && item.children.any? %>
-  <ul class="children">
+  <ul class="children" id="children_of_<%= item.issue.id%>">
   <% item.children.each do |child| %>
     <% n = node_level child.issue %>
-    <li class="item child <%= mark_if_closed(child) %> <%= mark_if_task(child) %>" id="<%= element_id_or_empty(child) %>" style="margin-left: -<%=n*40%>px; ">
+    <li class="item child <%= mark_if_closed(child) %> <%= mark_if_task(child) %>" id="<%= element_id_or_empty(child) %>">
       <div class="controls">
         <div class="more">more</div>
         <div class="talk">talk</div>
@@ -12,7 +12,8 @@
         <div class="spinner"> </div>
         <div class="id"><%= record_id_or_empty(child) %></div>
         <div class="issue_id_container"><%= issue_id_or_default(child) %></div>
-        <div class="subject editable child-subject" fieldname="subject" modelname="issue" style="background-position: <%= n*10 + (5*(n-1)) %>px 0px; text-indent: <%= n*20 %>px;">
+        <% width = (item.backlog_id==0 or item.backlog_id == product_backlog_id) ? (310 - (n*20) - 15) : (388 - (n*20) - 15) %>
+        <div class="subject editable child-subject" fieldname="subject" modelname="issue" style="margin-left: <%= n*20 %>px; width: <%= width %>px">
           <%= h child.subject %>
         </div>
         <div class="assigned_to_id editable sel" fieldname="assigned_to_id" modelname="issue">

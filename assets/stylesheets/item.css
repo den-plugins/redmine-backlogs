@@ -215,6 +215,7 @@ li.item div.subject {
   display: block;
   height: 15px;
   left: 66px;
+  white-space: nowrap;
   overflow: hidden;
   padding: 2px;
   position: absolute;
@@ -656,9 +657,16 @@ li.item.task div.discussion {
   HIERARCHICAL VIEW STYLES
 ***************************************/
 
-ul.children {width: inherit;}
-li.child {width: inherit;}
-div.child-subject {
+ul.children {
+  list-style-type:none;
+  margin:inherit;
+  margin: 0;
+  padding: 0;
+  width:inherit;
+}
+
+ul.children li.child div.child-subject {
+  padding-left: 15px;
   background-image: url(../images/corner.png);
   background-repeat: no-repeat;
 }

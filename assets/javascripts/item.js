@@ -149,6 +149,15 @@ RBL.Item = Class.create(RBL.Model, {
     this.getRoot().removeClassName('editing');
   },
   
+  escapeText: function(textValue){
+    var functionReturn = '';
+    if ( encodeURIComponent )
+      functionReturn = encodeURIComponent(textValue);
+    else
+      functionReturn = escape(textValue);
+    return functionReturn;
+  },
+  
   getBacklogID: function(){
     return this.getParentBacklog().getValue('.id');
   },
