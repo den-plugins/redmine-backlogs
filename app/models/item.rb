@@ -107,7 +107,7 @@ class Item < ActiveRecord::Base
         dups << pos
       end
     end
-    last_pos = (temp - dups.uniq).sort.last.to_i #get last position from uniq positions, reject duplicates first
+    last_pos = (temp.compact - dups.compact.uniq).sort.last.to_i #get last position from uniq positions, reject duplicates first
     items.each do |item|
       if dups.uniq.member?(item.position) # if item position has duplicate, update
         last_pos += 1
