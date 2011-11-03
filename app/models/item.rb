@@ -148,7 +148,7 @@ class Item < ActiveRecord::Base
   
   #TODO: Refactor query
   def children
-    if issue.children.any?
+    if !issue.nil? and issue.children.any?
       arr = issue.children.collect {|c| c.id }.join(', ')
       items = Item.find(:all, :conditions => ["issue_id in (#{arr}) "] )
     else
