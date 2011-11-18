@@ -93,6 +93,28 @@ class Item < ActiveRecord::Base
 
   def self.find_by_project(project)
     items = find(:all, :include => :issue, :conditions => "issues.project_id=#{project.id} and parent_id=0", :order => "position ASC")
+    update_same_positioned_items(items)
+  end
+
+# this method updates all items with the same position to avoid duplicate position that highly affects the drag n drop ordering of items.
+  def self.update_same_positioned_items(items)
+    temp = []
+    dups = []
+    items.map(&:position).each do |pos| #map only positions
+      if !temp.member?(pos) # store a single copy of a position
+        temp << pos
+      else # add to duplicates
+        dups << pos
+      end
+    end
+    last_pos = (temp.compact - dups.compact.uniq).sort.last.to_i #get last position from uniq positions, reject duplicates first
+    items.each do |item|
+      if dups.uniq.member?(item.position) # if item position has duplicate, update
+        last_pos += 1
+        item.position = last_pos
+        item.save
+      end
+    end
   end
 
   def self.remove_with_issue(issue)
@@ -126,7 +148,7 @@ class Item < ActiveRecord::Base
   
   #TODO: Refactor query
   def children
-    if issue.children.any?
+    if !issue.nil? and issue.children.any?
       arr = issue.children.collect {|c| c.id }.join(', ')
       items = Item.find(:all, :conditions => ["issue_id in (#{arr}) "] )
     else
