@@ -142,17 +142,71 @@ class Item < ActiveRecord::Base
     insert_at determine_new_position(params)
   end
   
-  def child?
+  def is_child?
     issue.parent.present?
+  end
+  
+  def is_parent?
+    issue.children.any?
+  end
+  
+  def parent_item
+    Item.find(:first, :conditions => ["issue_id = ?", issue.parent_issue.id]) if issue.parent
   end
   
   #TODO: Refactor query
   def children
-    if !issue.nil? and issue.children.any?
+    if issue.children.any?
       arr = issue.children.collect {|c| c.id }.join(', ')
       items = Item.find(:all, :conditions => ["issue_id in (#{arr}) "] )
     else
       []
     end
+  end
+  
+  #def self.sort_by_parent(items)
+  #  sorted = {}
+  #  items.each do |item|
+  #    if item.is_child? and items.include?(item.parent_item)
+  #      sorted[item.parent_item] ||= []
+  #      sorted[item.parent_item] << item
+  #    else
+  #      sorted[item] = []
+  #    end
+  #  end
+  #  i = 0;
+  #  sorted.each do |parent, children|
+  #    parent.position = i+1;
+  #    parent.save
+  #    i=i+1;
+  #    children.each do |c|
+  #      c.position = i+1
+  #      c.save
+  #      i=i+1
+  #    end unless children.empty?
+  #  end
+  #end
+  
+  def self.sort_by_parent(items)
+    sorted = []
+    items.each_with_index do |item, c|
+      if item.is_child? && sorted.include?(item.parent_item)
+        parent_index = sorted.index(item.parent_item)
+        sorted.insert(parent_index + 1, item)
+      elsif item.is_child?
+        parent_index = items.index(item.parent_item)
+        items.slice!(parent_index)
+        sorted << item.parent_item
+        sorted << item
+      else
+        sorted << item
+      end
+    end
+    pos = 0
+    sorted.each do |s|
+      pos = pos + 1
+      s.position = pos
+      s.save
+    end unless sorted.empty?
   end
 end

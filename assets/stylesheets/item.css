@@ -26,7 +26,7 @@ THE SOFTWARE.
   ITEM STYLES
 ***************************************/
 
-li.item {
+li.item div.li_container {
   background-color: #ccc;
   display: block;
   height: 25px;
@@ -35,11 +35,11 @@ li.item {
   width: 100%;
 }
 
-li.item.will_be_late {
+li.item div.li_container.will_be_late {
   background-color: #fcc;
 }
 
-li.item.closed {
+li.item div.li_container.closed {
   background-color: #cfc;
 }
 
@@ -47,23 +47,27 @@ li.item:hover {
   background-color: #ff6;
 }
 
-li.item.maximized {
+li.item div.li_container:hover {
+  background-color: #ff6;
+}
+
+li.item div.li_container.maximized {
   height: 250px;
 }
 
-li.item.discussion {
+li.item div.li_container.discussion {
   height: 235px;
 }
 
-li.item.maximized.discussion {
+li.item div.li_container.maximized.discussion {
   height: 465px;
 }
 
-.backlog.main li.item.maximized {
+.backlog.main li.item div.li_container.maximized {
   height: 110px;
 }
 
-.backlog.main li.item.maximized.discussion {
+.backlog.main li.item div.li_container.maximized.discussion {
   height: 320px;
 }
 
@@ -73,7 +77,7 @@ li.item textarea {
   font-size: 11px;
 }
 
-li.item > .body {
+li.item div.li_container > .body {
   display: block;
 }
 
@@ -96,7 +100,7 @@ li.item .controls {
   display: none;
 }
 
-li.item:hover .controls {
+li.item div.li_container:hover .controls {
   background-color: #ff6;
   display: block;
   height: 22px;
@@ -140,8 +144,8 @@ li.item:hover .controls .talk {
   left: 57px;
 }
 
-li.item.maximized .controls .more,
-li.item.discussion .controls .talk {
+li.item div.li_container.maximized .controls .more,
+li.item div.li_container.discussion .controls .talk {
   background: #aaa;
   border: solid 1px #eaeaea;
   border-top-color: #777;
@@ -156,21 +160,21 @@ li.item.discussion .controls .talk {
 }
 
 /**** CHECKBOX AND SPINNER ****/
-li.item > .body input.checkbox {
+li.item div.li_container > .body input.checkbox {
   display: block;
   position: absolute;
   top: 5px;
 }
 
-li.item.saving > .body input.checkbox {
+li.item.saving div.li_container > .body input.checkbox {
   display: none;
 }
 
-li.item > .body .spinner {
+li.item div.li_container > .body .spinner {
   display: none;
 }
 
-li.item.saving > .body .spinner {
+li.item.saving div.li_container > .body .spinner {
   background-image: url(../images/spinner.gif);
   display: block;
   height: 16px;
@@ -223,12 +227,12 @@ li.item div.subject {
   width: 388px;
 }
 
-li.item.editing > .body div.subject,
-li.item > .body input.subject {
+li.item div.li_container.editing > .body div.subject,
+li.item div.li_container > .body input.subject {
   display: none;
 }
 
-li.item.editing > .body input.subject {
+li.item div.li_container.editing > .body input.subject {
   display:block;
   height: 15px;
   left: 64px;
@@ -238,24 +242,24 @@ li.item.editing > .body input.subject {
 }
 
 .backlog.main .subject,
-.backlog.main li.item.editing input.subject {
+.backlog.main li.item div.li_container.editing input.subject {
   width: 310px;
 }
 
 
 /**** ASSIGNED TO ****/
-li.item  > .body div.assigned_to_id .v {
+li.item  div.li_container > .body div.assigned_to_id .v {
   display: none;
 }
 
-li.item  > .body div.assigned_to_id .t {
+li.item  div.li_container > .body div.assigned_to_id .t {
   display: block;
   overflow:hidden;
   white-space:nowrap;
-  width:92px;  
+  width:92px;
 }
 
-li.item  > .body div.assigned_to_id {
+li.item div.li_container > .body div.assigned_to_id {
   display: block;
   height: 15px;
   left: 465px;
@@ -266,16 +270,16 @@ li.item  > .body div.assigned_to_id {
   top: 3px;
 }
 
-li.item  > .body select.assigned_to_id * {
+li.item div.li_container > .body select.assigned_to_id * {
   display: block;
 }
 
-li.item.editing  > .body div.assigned_to_id,
-li.item  > .body select.assigned_to_id {
+li.item div.li_container.editing > .body div.assigned_to_id,
+li.item div.li_container > .body select.assigned_to_id {
   display: none;
 }
 
-li.item.editing  > .body select.assigned_to_id {
+li.item div.li_container.editing > .body select.assigned_to_id {
   display: block;
   left: 465px;
   position: absolute;
@@ -283,16 +287,16 @@ li.item.editing  > .body select.assigned_to_id {
   width: 108px;
 }
 
-.backlog.main li.item  > .body .assigned_to_id {
+.backlog.main li.item div.li_container > .body .assigned_to_id {
   display: none;
 }
 
 /**** STATUS ****/
-li.item  > .body div.status_id .v {
+li.item div.li_container > .body div.status_id .v {
   display: none;
 }
 
-li.item  > .body div.status_id .t {
+li.item div.li_container > .body div.status_id .t {
   background-color: transparent;
   display: block;
   height: 15px;
@@ -302,10 +306,10 @@ li.item  > .body div.status_id .t {
   top: 0;
   width: 68px;
   -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;  
+  -webkit-border-radius: 4px;
 }
 
-li.item  > .body div.status_id {
+li.item div.li_container > .body div.status_id {
   display: block;
   height: 15px;
   left: 580px;
@@ -316,16 +320,16 @@ li.item  > .body div.status_id {
   top: 3px;
 }
 
-li.item  > .body select.status_id * {
+li.item div.li_container > .body select.status_id * {
   display: block;
 }
 
-li.item.editing  > .body div.status_id,
-li.item  > .body select.status_id {
+li.item div.li_container.editing > .body div.status_id,
+li.item div.li_container > .body select.status_id {
   display: none;
 }
 
-li.item.editing  > .body select.status_id {
+li.item div.li_container.editing > .body select.status_id {
   display: block;
   left: 580px;
   position: absolute;
@@ -333,16 +337,16 @@ li.item.editing  > .body select.status_id {
   width: 78px;
 }
 
-.backlog.main li.item  > .body .status_id {
+.backlog.main li.item div.li_container > .body .status_id {
   display: none;
 }
 
-.backlog.main li.item. > .body .status_id {
+.backlog.main li.item. div.li_container > .body .status_id {
   display: none;
 }
 
 /**** POINTS ****/
-li.item  > .body div.points {
+li.item div.li_container > .body div.points {
   display: block;
   height: 15px;
   overflow: hidden;
@@ -355,12 +359,12 @@ li.item  > .body div.points {
   width: 25px;
 }
 
-li.item.editing  > .body div.points,
-li.item  > .body input.points {
+li.item div.li_container.editing > .body div.points,
+li.item div.li_container > .body input.points {
   display: none;
 }
 
-li.item.editing  > .body input.points {
+li.item div.li_container.editing > .body input.points {
   display:block;
   height: 15px;
   position: absolute;
@@ -370,23 +374,23 @@ li.item.editing  > .body input.points {
   width: 25px;
 }
 
-.backlog.main li.item > .body div.points {
+.backlog.main li.item div.li_container > .body div.points {
   right: 6px;
 }
 
-.backlog.main li.item.editing > .body input.points {
+.backlog.main li.item div.li_container.editing > .body input.points {
   right: 5px;
 }
 
 /**** DESCRIPTION ****/
-li.item  > .body div.description,
-li.item  > .body div.description .textile,
-li.item  > .body textarea.description {
+li.item div.li_container > .body div.description,
+li.item div.li_container > .body div.description .textile,
+li.item div.li_container > .body textarea.description {
   display: none;
 }
 
-li.item.maximized > .body div.description,
-li.item.maximized.editing > .body textarea.description {
+li.item div.li_container.maximized > .body div.description,
+li.item div.li_container.editing.maximized > .body textarea.description {
   display: block;
   font-size: 10px;
   height: 75px;
@@ -397,40 +401,40 @@ li.item.maximized.editing > .body textarea.description {
   width: 689px;
 }
 
-li.item.maximized > .body div.description {
+li.item div.li_container.maximized > .body div.description {
   height: 73px;
   padding: 2px;
   width: 686px;
 }
 
-li.item.editing > .body div.description {
+li.item div.li_container.editing > .body div.description {
   display: none;
 }
 
-.backlog.main li.item.maximized > .body div.description {
+.backlog.main li.item div.li_container.maximized > .body div.description {
   width: 405px;
 }
 
-.backlog.main li.item.maximized.editing > .body textarea.description {
+.backlog.main li.item div.li_container.editing.maximized > .body textarea.description {
   width: 408px;
 }
 
 /**** TASKS SECTION ****/
-li.item > .item_tasks {
+li.item div.li_container > .item_tasks {
   display: none;
 }
 
-li.item > .item_tasks.loading {
+li.item div.li_container > .item_tasks.loading {
   background-image: url(../images/spinner.gif);
   background-position: center center;
   background-repeat: no-repeat;
 }
 
-li.item > .add_task {
+li.item div.li_container > .add_task {
   display: none;
 }
 
-li.item.maximized > .add_task {
+li.item div.li_container.maximized > .add_task {
   border-width: 1px;
   cursor: pointer;
   display: block;
@@ -443,11 +447,11 @@ li.item.maximized > .add_task {
   -webkit-border-radius: 4px;
 }
 
-.backlog.main li.item > .add_task {
+.backlog.main li.item div.li_container > .add_task {
   display: none;
 }
 
-li.item.maximized > .item_tasks {
+li.item div.li_container.maximized > .item_tasks {
   background-color: #999;
   border: 1px solid #999;
   display: block;
@@ -469,7 +473,7 @@ li.item.maximized > .item_tasks {
   display: block;
 }
 
-.backlog.main li.item > .item_tasks {
+.backlog.main li.item div.li_container > .item_tasks {
   display: none;
 }
 
@@ -479,7 +483,7 @@ li.item .discussion {
   display: none;
 }
 
-li.item.discussion .discussion {
+li.item div.li_container.discussion .discussion {
   background-color: #999;
   border: 1px solid #333;
   display: block;
@@ -488,18 +492,18 @@ li.item.discussion .discussion {
   padding: 0px;
   position: absolute;
   top: 30px;
-  width: 688px;  
+  width: 688px;
 }
 
-.backlog.main li.item.discussion .discussion {
+.backlog.main li.item div.li_container.discussion .discussion {
   width: 408px;
 }
 
-.backlog.main li.item.discussion.maximized .discussion {
+.backlog.main li.item div.li_container.maximized.discussion .discussion {
   top: 110px;
 }
 
-li.item.maximized.discussion .discussion {
+li.item div.li_container.maximized.discussion .discussion {
   top: 255px;
 }
 
@@ -579,55 +583,55 @@ ul.item_tasks * {
   display: none;
 }
 
-li.item.task {
+li.item div.li_container.task {
   left: 0px;
   position: relative;
 }
 
-li.item.task div.controls {
+li.item div.li_container.task div.controls {
   display: none;
 }
 
-li.item.task .backlog_id,
-li.item.task .id {
+li.item div.li_container.task .backlog_id,
+li.item div.li_container.task .id {
   display: none;
 }
 
-li.item.task div.issue_id_container {
+li.item div.li_container.task div.issue_id_container {
   padding: 2px 3px 0px 1px;
 }
 
-li.item.task > .body div.subject {
+li.item div.li_container.task > .body div.subject {
   height: 12px;
   padding-top: 5px;
 }
 
-li.item.task  > .body div.subject,
-li.item.task  > .body input.subject {
+li.item div.li_container.task > .body div.subject,
+li.item div.li_container.task > .body input.subject {
   width: 350px;
 }
 
-li.item.task > .body div.assigned_to_id {
+li.item div.li_container.task > .body div.assigned_to_id {
   height: 12px;
   padding-top: 5px;
 }
 
-li.item.task > .body div.assigned_to_id,
-li.item.task > .body select.assigned_to_id {
+li.item div.li_container.task > .body div.assigned_to_id,
+li.item div.li_container.task > .body select.assigned_to_id {
   left: 430px;
 }
 
-li.item.task > .body div.status_id {
+li.item div.li_container.task > .body div.status_id {
   height: 12px;
   padding-top: 5px;
 }
 
-li.item.task > .body div.status_id,
-li.item.task > .body select.status_id {
+li.item div.li_container.task > .body div.status_id,
+li.item div.li_container.task > .body select.status_id {
   left: 550px;
 }
 
-li.item.task > .body div.status_id .t {
+li.item div.li_container.task > .body div.status_id .t {
   background-color: transparent;
   display: block;
   height: 12px;
@@ -640,8 +644,8 @@ li.item.task > .body div.status_id .t {
   -webkit-border-radius: 4px;
 }
 
-li.item.task > .body div.points,
-li.item.task.editing > .body input.points {
+li.item div.li_container.task > .body div.points,
+li.item div.li_container.task.editing > .body input.points {
   display: none;
 }
 
@@ -662,7 +666,8 @@ ul.children {
   margin:inherit;
   margin: 0;
   padding: 0;
-  width:inherit;
+  position: relative;
+  background-color: white;
 }
 
 ul.children li.child div.child-subject {

@@ -6,7 +6,7 @@ class BacklogsController < ApplicationController
   before_filter :find_project, :authorize
       
   def index
-    @items         = Item.find_by_project(@project).select {|i| !i.child? }
+    @items         = Item.find_by_project(@project).select {|i| i unless i.is_child?}
     @item_template = Item.new
     @backlogs      = Backlog.find_by_project(@project, (params[:show_accepted_backlogs] ? nil : 3))
     @product_backlog = Backlog.find_product_backlog(@project)

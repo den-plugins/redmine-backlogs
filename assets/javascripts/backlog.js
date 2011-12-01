@@ -338,12 +338,22 @@ RBL.Backlog = Class.create(RBL.Model, {
     var changeHandler = this.itemDragging.bind(this);
     Sortable.create(this.getChild('ul').identify(), {
                               containment : backlogs,
-                              only : 'item',
+                              only : 'nonchild',
                               tree : true,
                               treeTag :'ul',
                               dropOnEmpty : true,
                               onUpdate    : updateHandler,
                               onChange    : changeHandler });
+    var children = $$("ul.children").map(function(ul) {return ul.identify() });
+    for (i=0; i< children.length; i++) {
+      Sortable.create(children[i]), {
+          containment: children[i],
+          only: "c_" + children[i],
+          dropOnEmpty: true,
+          onUpdate: updateHandler,
+          onChange: changeHandler
+      }
+    }
   },
 
   moveItems: function(items){

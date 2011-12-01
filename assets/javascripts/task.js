@@ -32,8 +32,8 @@ RBL.Task = Class.create(RBL.Item, {
     if(element==null){
       element = $("item_template").down().cloneNode(true);
       element.writeAttribute({id: this._prefix + (new Date).getTime()});
-      element.addClassName("task");
-      element.removeClassName("maximized");
+      element.down("div.li_container").addClassName("task");
+      element.down("div.li_container").removeClassName("maximized");
     }
     $super(element, this._prefix);
   },

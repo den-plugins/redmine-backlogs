@@ -33,15 +33,16 @@ RBL.Item = Class.create(RBL.Model, {
     }
     $super(element);
 
-    this.getChild('.more').observe('mouseup', this.toggleHeight.bind(this));
-    this.getChild('.talk').observe('mouseup', this.toggleDiscussion.bind(this));
-    this.getChild('.item_tasks').observe('mousedown', this.preventDrag.bind(this));
-    this.getChild('.discussion').observe('mousedown', this.preventDrag.bind(this));
-    this.getChild('.add_task').observe('mouseup', this.addTask.bind(this));
-    this.getChild('textarea.comment').observe('keydown', this.saveComment.bind(this));
+    this.getSpecialChild('.more').observe('mouseup', this.toggleHeight.bind(this));
+    this.getSpecialChild('.talk').observe('mouseup', this.toggleDiscussion.bind(this));
+    this.getSpecialChild('.item_tasks').observe('mousedown', this.preventDrag.bind(this));
+    this.getSpecialChild('.discussion').observe('mousedown', this.preventDrag.bind(this));
+    this.getSpecialChild('.add_task').observe('mouseup', this.addTask.bind(this));
+    this.getSpecialChild('textarea.comment').observe('keydown', this.saveComment.bind(this));
     
-    var editables = this.getChildren('.editable');
+    var editables = this.getSpecialChildren('.editable');
     for(var ii=0; ii < editables.length; ii++){
+      //RBL.log(editables[ii].identify() + " > " + this.getRoot().identify());
       editables[ii].observe('click', this.edit.bind(this));
     }
   },
@@ -69,7 +70,7 @@ RBL.Item = Class.create(RBL.Model, {
       }
     }
 
-    var status   = this.getChild("select.status_id");
+    var status   = this.getSpecialChild("select.status_id");
     var selected = $(status[status.selectedIndex]);
     if(selected.hasClassName("closed")) {
       this.getRoot().addClassName("closed");
@@ -83,25 +84,25 @@ RBL.Item = Class.create(RBL.Model, {
   },
   
   commentsLoaded: function(transport){
-    this.getChild("div.comments").update(transport.responseText);
-    this.getChild("div.discussion").removeClassName("loading");
+    this.getSpecialChild("div.comments").update(transport.responseText);
+    this.getSpecialChild("div.discussion").removeClassName("loading");
   },
   
   commentSaved: function(transport){
-    this.getChild("div.comments").insert({ 'top': transport.responseText });
-    this.getChild("textarea.comment").value = '';
-    this.getChild("div.discussion").removeClassName("loading");
+    this.getSpecialChild("div.comments").insert({ 'top': transport.responseText });
+    this.getSpecialChild("textarea.comment").value = '';
+    this.getSpecialChild("div.discussion").removeClassName("loading");
   },
   
   edit: function(event){
     if(event!=null && event.shiftKey) return true;
-    
-    if (Element.viewportOffset(this.getRoot())[1] > document.viewport.getDimensions().height) 
+
+    if (Element.viewportOffset(this.getRoot())[1] > document.viewport.getDimensions().height)
       Element.scrollTo(this.getRoot());
 
-    this.getRoot().addClassName("editing");    
-    
-    var editables = this.getBody().select(".editable"); 
+    this.getRoot().down("div.li_container").addClassName("editing");
+
+    var editables = this.getBody().select(".editable");
     var field = null;
     var inputyType = null
 
@@ -138,15 +139,15 @@ RBL.Item = Class.create(RBL.Model, {
       if(event!=null && ($(event.target)==editables[ii] || $(event.target).up()==editables[ii])) field.activate();
     }
     
-    if(event!=null){ 
+    if(event!=null){
       event.stop();
     } else {
-      this.getChildren('.editor')[0].activate();
+      this.getSpecialChildren('.editor')[0].activate();
     }
   },
 
   endEdit: function(){
-    this.getRoot().removeClassName('editing');
+    this.getRoot().down("div.li_container").removeClassName('editing');
   },
   
   escapeText: function(textValue){
@@ -163,7 +164,7 @@ RBL.Item = Class.create(RBL.Model, {
   },
   
   getBody: function(){
-    return this.getRoot().select(".body")[0];
+    return this.getSpecialChild(".body");
   },
     
   getNext: function(){
@@ -226,9 +227,9 @@ RBL.Item = Class.create(RBL.Model, {
     var el = new Element('div');
     el.update(transport.responseText);
 
-    this.getChild(".issue_id_container").update(el.select(".issue_id_container")[0].innerHTML);
+    this.getSpecialChild(".issue_id_container").update(el.select(".issue_id_container")[0].innerHTML);
     this.setValue('.id', el.select(".body .id")[0].innerHTML);
-    this.getRoot().writeAttribute('id', this._prefix + this.getValue('.id'));    
+    this.getRoot().writeAttribute('id', this._prefix + this.getValue('.id'));
     this.register();
     this.getParentBacklog().makeSortable();
     this.markNotSaving();
@@ -238,7 +239,7 @@ RBL.Item = Class.create(RBL.Model, {
     var el = new Element('div');
     el.update(transport.responseText);
 
-    this.getChild(".description").update(el.select(".description")[0].innerHTML);
+    this.getSpecialChild(".description").update(el.select(".description")[0].innerHTML);
     var highlightStatus = (this.getValue(".issue.status_id .v")!=el.select(".issue.status_id .v")[0].innerHTML);
     this.setValue(".issue.status_id .t", el.select(".issue.status_id .t")[0].innerHTML);
     this.setValue(".issue.status_id .v", el.select(".issue.status_id .v")[0].innerHTML);
@@ -261,7 +262,7 @@ RBL.Item = Class.create(RBL.Model, {
                      method    : "get",
                      onComplete: this.commentsLoaded.bind(this)
     });
-    this.getChild("div.discussion").addClassName("loading");
+    this.getSpecialChild("div.discussion").addClassName("loading");
   },
 
   loadTasks: function(){
@@ -320,7 +321,7 @@ RBL.Item = Class.create(RBL.Model, {
   saveComment: function(event){
     if(event.keyCode==Event.KEY_RETURN && event.ctrlKey) {
       var params =  {};
-      params["comment"] = this.getChild("textarea.comment").value;
+      params["comment"] = this.getSpecialChild("textarea.comment").value;
       var url = RBL.urlFor({ controller: 'comments',
                              action    : 'create',
                              item_id   : this.getValue('.id') });
@@ -330,42 +331,42 @@ RBL.Item = Class.create(RBL.Model, {
                        parameters: params,
                        onComplete: this.commentSaved.bind(this)
       });
-      this.getChild("div.discussion").addClassName("loading");
+      this.getSpecialChild("div.discussion").addClassName("loading");
       event.stop();
     } else if (event.keyCode==Event.KEY_ESC) {
-      this.getChild("textarea.comment").value = '';
+      this.getSpecialChild("textarea.comment").value = '';
       event.stop();
     }
   },
   
   tasksLoaded: function(transport){
     this.getTasksList().update(transport.responseText);
-    if (this.getChildren('li.item.task').length==0){
+    if (this.getSpecialChildren('li.item.task').length==0){
       this.getTasksList().update("<div class='no_tasks'>No tasks found</div>")
       this.getTasksList().addClassName("empty");
     } else {
       var myself = this;  // Because 'this' will mean something else below
-      this.getChildren('li.item.task').each(function(element){
+      this.getSpecialChildren('li.item.task').each(function(element){
         var task = new RBL.Task(element, myself);
         task.getRoot().removeClassName("maximized");
-        myself.registerTask(task);       
+        myself.registerTask(task);
       });
     }
     this.getTasksList().removeClassName("loading");
   },
   
   toggleDiscussion: function(event){
-    this.getRoot().toggleClassName("discussion");
-    if(this.getRoot().hasClassName("discussion")){
+    this.getRoot().down("div.li_container").toggleClassName("discussion");
+    if(this.getRoot().down("div.li_container").hasClassName("discussion")){
       this.loadComments();
-      this.getChild("textarea.comment").update("<Type your comment here. Press Ctrl + Enter to post>");
-      this.getChild("textarea.comment").activate();
+      this.getSpecialChild("textarea.comment").update("<Type your comment here. Press Ctrl + Enter to post>");
+      this.getSpecialChild("textarea.comment").activate();
     }
   },
     
   toggleHeight: function(event){
-    this.getRoot().toggleClassName("maximized");
-    if(this.getRoot().hasClassName("maximized")) {
+    this.getRoot().down("div.li_container").toggleClassName("maximized");
+    if(this.getRoot().down("div.li_container").hasClassName("maximized")) {
       if(!this.getParentBacklog().getRoot().hasClassName("main")) this.loadTasks();
     } else {
       this.clearTasks();
