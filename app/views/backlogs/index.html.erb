@@ -30,27 +30,37 @@
 
 <div class="backlog main">
   <%= render :partial => "header", :locals => { :backlog => nil } %>
-  <ul><%= render :partial => "items/item", :collection => @items.select{|item| item.backlog_id==0 or item.backlog_id == product_backlog_id} %></ul>
+  <% if @items[:backlog] %>
+  <ul>
+    <% @items[:backlog][:pitems].each do |item| %>
+      <%= render :partial => "items/item", :locals => {:item => item, :citems => @items[:backlog][:citems]} %>
+    <% end %>
+  </ul>
+  <% end %>
 </div>
 
 <div id="backlog_body">
-  <%# backlogs = @backlogs.reject {|b| b if b.id == product_backlog_id} %>
   <% unless @backlog  %>
     <%- @backlogs.each do |backlog| %>
-      <%# if backlog.version.state and (!backlog.version.state.eql?(3) or @show_accepted_backlogs) %>
       <%- if backlog.version.state %>
-      <%# unless @hide_closed_backlogs && backlog.is_closed? %>
       <div class="backlog <%= backlog.is_closed? ? "closed" : "" %>">
         <%= render :partial => "header", :locals => { :backlog => backlog } %>
-        <ul><%= render :partial => "items/item", :collection => @items.select{|item| item.backlog_id==backlog.id} %></ul>
+        <ul>
+          <% @items[backlog.id][:pitems].each do |item| %>
+            <%= render :partial => "items/item", :locals => {:item => item, :citems => @items[backlog.id][:citems]} %>
+          <% end %>
+        </ul>
       </div>
-      <%# end %>
       <%- end %>
     <%- end %>
   <% else %>
     <div class="backlog <%= @backlog.is_closed? ? "closed" : "" %>">
       <%= render :partial => "header", :locals => { :backlog => @backlog } %>
-      <ul><%= render :partial => "items/item", :collection => @items.select{|item| item.backlog_id==@backlog.id} %></ul>
+      <ul>
+        <% @items[backlog.id][:pitems].each do |item| %>
+          <%= render :partial => "items/item", :locals => {:item => item, :citems => @items[backlog.id][:citems]} %>
+        <% end %>
+        </ul>
     </div>
   <% end %>
   

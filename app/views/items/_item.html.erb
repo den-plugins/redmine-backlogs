@@ -1,4 +1,5 @@
-<li class="item <%= mark_if_closed(item) %> <%= mark_if_task(item) %> <%= mark_if_child(item) %>" id="<%= element_id_or_empty(item) %>">
+<% begin; level = level; rescue; level = 0; end %>
+<li class="item <%= mark_if_closed(item) %> <%= mark_if_task(item) %>  <%= mark_if_child(item, level) %>" id="<%= element_id_or_empty(item) %>">
     <div class="li_container <%= mark_if_closed(item) %> <%= mark_if_task(item) %>">
         <div class="controls">
             <div class="more">more</div>
@@ -9,7 +10,7 @@
             <div class="spinner"> </div>
             <div class="id"><%= record_id_or_empty(item) %></div>
             <div class="issue_id_container"><%= issue_id_or_default(item) %></div>
-            <div class="subject editable <%= subject_class_if_child item %>" fieldname="subject" modelname="issue" style="<%= subject_style_if_child item %>"><%= h item.subject %></div>
+            <div class="subject editable" fieldname="subject" modelname="issue" style="<%= subject_style_if_child(item, level)%>"><%= h item.subject %></div>
             <div class="assigned_to_id editable sel" fieldname="assigned_to_id" modelname="issue">
                 <div class="t"><%= assignee_name_or_empty(item) %></div>
                 <div class="v"><%= assigned_to_id_or_empty(item) %></div>
@@ -36,5 +37,14 @@
         <button class="add_task">+</button>
         <ul class="item_tasks loading"></ul>
     </div>
-    <%= render :partial => "items/children_list", :locals => {:item => item} if with_child?(item) %>
+    <% unless item.new_record? %>
+      <% begin; citems = citems; rescue; citems = []; end %>
+      <% filtered_children = children_of(item, citems) %>
+      <ul class="children">
+      <% level = level.to_i + 1 %>
+      <% filtered_children.each do |child| %>
+        <%= render :partial => "items/item", :locals => {:item => child, :citems => citems, :level => level } %>
+      <% end if filtered_children and  !filtered_children.empty? %>
+      </ul>
+    <%  end %>
 </li>

@@ -670,8 +670,8 @@ ul.children {
   background-color: white;
 }
 
-ul.children li.child div.child-subject {
-  padding-left: 15px;
+li ul.children li div.subject {
+  padding-left: 11px;
   background-image: url(../images/corner.png);
   background-repeat: no-repeat;
 }

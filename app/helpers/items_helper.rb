@@ -10,6 +10,10 @@ module ItemsHelper
     issue.nil? || issue.assigned_to.nil? ? "" : "#{issue.assigned_to.firstname} #{issue.assigned_to.lastname}"
   end
   
+  def children_of(item, citems)
+    item.children.reject {|c| c unless citems.include?(c)}  if citems && !citems.empty?
+  end
+  
   def description_or_empty(item)
     item.new_record? ? "" : textilizable(h(item.issue.description))
   end
@@ -27,8 +31,8 @@ module ItemsHelper
                        link_to("#<span class='issue_id'>#{item.issue.id}</span>", :controller => "issues", :action => "show", :id => item.issue.id)
   end
   
-  def mark_if_child(item)
-    !item.new_record? && item.is_child? ? "child c_#{item.issue.parent_issue.id}" : "nonchild"
+  def mark_if_child(item, n)
+    !item.new_record? && !n.to_i.eql?(0) ? "c_#{item.issue.parent_issue.id}" : "nonchild"
   end
   
   def mark_if_closed(item)
@@ -68,10 +72,10 @@ module ItemsHelper
     !item.new_record? && item.is_child? ? "child-subject" : ""
   end
   
-  def subject_style_if_child(item)
-    if !item.new_record? && item.is_child?
-      n = node_level item.issue
-      width = (item.backlog_id == 0) ? (310 - (n*20) - 15) : (388 - (n*20) - 15)
+  def subject_style_if_child(item, n)
+    n =  n.to_i
+    if !item.new_record? && !n.eql?(0)
+      width = (item.backlog_id.eql?(0) || item.backlog_id.eql?(product_backlog_id)) ? (310 - (n*20) - 15) : (388 - (n*20) - 15)
       "margin-left: #{n*20}px; width: #{width}px"
     end
   end
@@ -88,7 +92,4 @@ module ItemsHelper
     item.new_record? ? "" : item.issue.tracker.name
   end
   
-  def with_child?(item)
-    !item.new_record? && item.children.any?
-  end
 end
