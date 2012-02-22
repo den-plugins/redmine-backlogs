@@ -129,9 +129,9 @@ RBL.Item = Class.create(RBL.Model, {
       }
       
       switch(inputType){
-        case 'textarea': field.update(editables[ii].select(".textile")[0].innerHTML); break;
-        case 'input'   : field.value = editables[ii].innerHTML; break;
-        case 'select'  : for(var jj=0; jj < field.length; jj++) { 
+        case 'textarea': field.update(this.stripTags(editables[ii].select(".textile")[0].innerHTML)); break;
+        case 'input'   : field.value = this.stripTags(editables[ii].innerHTML); break;
+        case 'select'  : for(var jj=0; jj < field.length; jj++) {
                            if(field[jj].value==editables[ii].select('.v')[0].innerHTML) field.selectedIndex=jj;
                          }
       }
@@ -343,6 +343,12 @@ RBL.Item = Class.create(RBL.Model, {
     }
   },
   
+  stripTags: function(text) {
+    var d = document.createElement("span");
+    d.innerHTML = text;
+    return d.textContent || d.innerText;
+  },
+  
   tasksLoaded: function(transport){
     this.getTasksList().update(transport.responseText);
     if (this.getSpecialChildren('li.item.task').length==0){
@@ -383,8 +389,8 @@ RBL.Item = Class.create(RBL.Model, {
     
     for(var ii=0; ii<fields.length; ii++){
       params[fields[ii].readAttribute('modelname') + '[' + fields[ii].readAttribute('fieldname') + ']'] =
-        (fields[ii].hasClassName('sel') ? fields[ii].select('.v')[0].innerHTML : 
-          (fields[ii].hasClassName('ta') ? fields[ii].select('.textile')[0].innerHTML : fields[ii].innerHTML) );
+        (fields[ii].hasClassName('sel') ? fields[ii].select('.v')[0].innerHTML :
+          (fields[ii].hasClassName('ta') ? this.stripTags(fields[ii].select('.textile')[0].innerHTML) : this.stripTags(fields[ii].innerHTML)) );
     }
     
     params["item[backlog_id]"] = this.getBacklogID();
