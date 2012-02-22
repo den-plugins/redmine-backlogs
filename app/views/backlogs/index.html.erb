@@ -57,8 +57,8 @@
     <div class="backlog <%= @backlog.is_closed? ? "closed" : "" %>">
       <%= render :partial => "header", :locals => { :backlog => @backlog } %>
       <ul>
-        <% @items[backlog.id][:pitems].each do |item| %>
-          <%= render :partial => "items/item", :locals => {:item => item, :citems => @items[backlog.id][:citems]} %>
+        <% @items[@backlog.id][:pitems].each do |item| %>
+          <%= render :partial => "items/item", :locals => {:item => item, :citems => @items[@backlog.id][:citems]} %>
         <% end %>
         </ul>
     </div>

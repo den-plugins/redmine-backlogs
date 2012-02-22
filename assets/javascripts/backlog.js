@@ -289,17 +289,33 @@ RBL.Backlog = Class.create(RBL.Model, {
     // in OR out of the backlog. Thus the condition check below
     
     var item = RBL.Item.find(this._itemDragged);
-        
+    var subtasks = item.getSubtasks();
+    var myself = this;
+    
     // Check if item is still in this backlog
     if(this.getValue('.id')==item.getBacklogID()){
       // Yes, item is in this backlog
       this.registerItem(item);
       item.save(); // itemUpdated will be called when this is done
+      
+      // also save subtasks
+      for(var i=0; i<subtasks.length; i++){
+        var sub = RBL.Item.find(subtasks[i]);
+        myself.registerItem(sub);
+        sub.save();
+      }
     } else {
       // No, item no longer in this backlog
       this.unregisterItem(item);
       this.checkEta();
       // FIXME: items below the item removed will have to be renumbered
+      
+      // also save subtasks
+      for(var i=0; i<subtasks.length; i++){
+        sub = RBL.Item.find(subtasks[i]);
+        myself.unregisterItem(sub);
+        myself.checkEta ();
+      }
     }
   },
   

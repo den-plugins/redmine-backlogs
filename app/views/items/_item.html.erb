@@ -1,5 +1,5 @@
 <% begin; level = level; rescue; level = 0; end %>
-<li class="item <%= mark_if_closed(item) %> <%= mark_if_task(item) %>  <%= mark_if_child(item, level) %>" id="<%= element_id_or_empty(item) %>">
+<li class="item <%= mark_if_closed(item) %> <%= mark_if_task(item) %> <%= mark_if_child(item, level) %>" id="<%= element_id_or_empty(item) %>">
     <div class="li_container <%= mark_if_closed(item) %> <%= mark_if_task(item) %>">
         <div class="controls">
             <div class="more">more</div>

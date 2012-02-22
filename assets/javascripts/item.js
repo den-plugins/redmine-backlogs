@@ -190,9 +190,13 @@ RBL.Item = Class.create(RBL.Model, {
     return this.getChild('.item_tasks');
   },
   
+  getSubtasks: function() {
+    return this._rootElement.select('li.item');
+  },
+  
   handleKeyPress: function(event){
     // Special treatment for textareas
-    var processReturnKey = (event.target.type=="textarea" && event.ctrlKey) || event.target.type!="textarea";  
+    var processReturnKey = (event.target.type=="textarea" && event.ctrlKey) || event.target.type!="textarea";
     
     switch(event.keyCode){
       case Event.KEY_ESC   : if(this.isNew()) {
