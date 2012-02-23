@@ -42,6 +42,7 @@ class BacklogsController < ApplicationController
       tmp_items = @all_items.select {|i| i.backlog_id.eql?(backlog.id)}
       citems = []
       items = tmp_items.reject do |item|
+        puts "id: #{item.issue_id}, pos: #{item.position}"
         citems << item if item.is_child?
         item if item.is_child? and tmp_items.include?(item.parent_item)
       end
@@ -51,9 +52,10 @@ class BacklogsController < ApplicationController
     tmp_items = @all_items.select {|i| i.backlog_id.eql?(0) || i.backlog_id.eql?(@product_backlog.id)}
     citems = []
     items = tmp_items.reject do |item|
+      puts "id: #{item.issue_id}, pos: #{item.position}"
       citems << item if item.is_child?
       item if item.is_child? and tmp_items.include?(item.parent_item)
     end
-    @items[:backlog] = {:pitems => items, :citems => citems}
+    @items[:backlog] = {:pitems => items.sort_by(&:position), :citems => citems.sort_by(&:position)}
   end
 end

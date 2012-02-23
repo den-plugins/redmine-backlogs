@@ -11,7 +11,8 @@ module ItemsHelper
   end
   
   def children_of(item, citems)
-    item.children.reject {|c| c unless citems.include?(c)}  if citems && !citems.empty?
+    # Something went wrong on the ranking after the reject. Need to rearrange item positions here.
+    item.children.reject {|c| c unless citems.include?(c)}.sort_by(&:position) if citems && !citems.empty?
   end
   
   def description_or_empty(item)

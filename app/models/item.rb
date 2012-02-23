@@ -22,6 +22,7 @@ class Item < ActiveRecord::Base
   end
   
   def self.update(params)
+    puts "hey!"
     item = find(params[:id])
     journal = item.issue.init_journal(User.current, @notes)
     
@@ -139,7 +140,8 @@ class Item < ActiveRecord::Base
   end
   
   def update_position(params)
-    insert_at determine_new_position(params)
+    insert_at(determine_new_position(params))
+    puts "hello!"
   end
   
   def is_child?
