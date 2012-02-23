@@ -44,15 +44,6 @@ module ItemsHelper
     item.parent_id == 0 ? "" : "task"
   end
   
-  def node_level(issue)
-    l = 0
-    until issue.parent.nil?
-      l += 1
-      issue = issue.parent_issue
-    end
-    l
-  end
-  
   def points_or_empty(item)
     item.points.nil? ? 0 : item.points
   end
@@ -87,6 +78,11 @@ module ItemsHelper
 
   def tracker_id_or_empty(item)
     item.new_record? ? "" : item.issue.tracker_id
+  end
+  
+  def tracker_indicator_or_default(item)
+    return "" if item.new_record?
+    item.is_child? ? "subtask" : item.issue.tracker.name.downcase
   end
 
   def tracker_name_or_empty(item)

@@ -9,6 +9,7 @@
             <input type="checkbox" class="checkbox"/>
             <div class="spinner"> </div>
             <div class="id"><%= record_id_or_empty(item) %></div>
+            <div class="tracker_button_container <%= tclass=tracker_indicator_or_default(item).downcase %>"><%= tclass.blank? ? "" : tclass.chars.first.upcase %></div>
             <div class="issue_id_container"><%= issue_id_or_default(item) %></div>
             <div class="subject editable" fieldname="subject" modelname="issue" style="<%= subject_style_if_child(item, level)%>"><%= h item.subject %></div>
             <div class="assigned_to_id editable sel" fieldname="assigned_to_id" modelname="issue">

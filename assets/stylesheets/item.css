@@ -159,6 +159,31 @@ li.item div.li_container.discussion .controls .talk {
   display: none;
 }
 
+/**** TRACKER INDICATOR ****/
+
+li.item .tracker_button_container {
+  display: block;
+  color: white;
+  font-size: 9px;
+  font-weight: bold;
+  height: 12px; left: 20px;
+  overflow: hidden;
+  padding: 1px 3px 1px 1px;
+  position: absolute;
+  text-align: center;
+  top: 6px;
+  width: 12px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+}
+
+li.item .tracker_button_container * { display: inline; font-size: 8px;}
+li.item .tracker_button_container.feature {background-color: #0EA94B; }
+li.item .tracker_button_container.task {background-color: #5081AA; }
+li.item .tracker_button_container.bug {background-color: #5F5F5F; }
+li.item .tracker_button_container.subtask {background-color: #CA1700; }
+
+
 /**** CHECKBOX AND SPINNER ****/
 li.item div.li_container > .body input.checkbox {
   display: block;
@@ -197,7 +222,7 @@ li.item .issue_id_container {
   display: block;
   font-size: 9px;
   height: 12px;
-  left: 20px;
+  left: 40px;
   overflow: hidden;
   padding: 1px 3px 1px 1px;
   position: absolute;
@@ -218,7 +243,7 @@ li.item .issue_id_container * {
 li.item div.subject {
   display: block;
   height: 15px;
-  left: 66px;
+  left: 90px;
   white-space: nowrap;
   overflow: hidden;
   padding: 2px;
@@ -262,7 +287,7 @@ li.item  div.li_container > .body div.assigned_to_id .t {
 li.item div.li_container > .body div.assigned_to_id {
   display: block;
   height: 15px;
-  left: 465px;
+  left: 485px;
   overflow: hidden;
   padding: 2px 2px 2px 9px;
   position: absolute;
@@ -312,7 +337,7 @@ li.item div.li_container > .body div.status_id .t {
 li.item div.li_container > .body div.status_id {
   display: block;
   height: 15px;
-  left: 580px;
+  left: 600px;
   overflow: hidden;
   padding: 2px 2px 2px 9px;
   position: absolute;
