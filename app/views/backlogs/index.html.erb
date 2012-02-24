@@ -30,7 +30,7 @@
 
 <div class="backlog main">
   <%= render :partial => "header", :locals => { :backlog => nil } %>
-  <% if @items[:backlog] %>
+  <% if @items && @items[:backlog] %>
   <ul>
     <% @items[:backlog][:pitems].each do |item| %>
       <%= render :partial => "items/item", :locals => {:item => item, :citems => @items[:backlog][:citems]} %>
