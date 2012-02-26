@@ -364,10 +364,8 @@ RBL.Backlog = Class.create(RBL.Model, {
     var descendants = this.getChild('ul').descendants().map(function(el){return el.identify()});
     var all_children = $$("ul.children").collect(function(ul) {return ul.identify()});
     var children = all_children.reject(function(c){return !descendants.include(c)});
-    console.log(children);
     for (i=0; i< children.length; i++) {
-      var parent_id = $(children[i]).siblings()[0].select(".issue_id")[0].innerHTML; //children[i].match(/\d+$/)[0];
-      console.log(parent_id);
+      var parent_id = $(children[i]).siblings()[0].select(".issue_id")[0].innerHTML;
       Sortable.create(children[i], {
           containment: children[i],
           only: "c_" + parent_id,

@@ -22,7 +22,6 @@ class Item < ActiveRecord::Base
   end
   
   def self.update(params)
-    puts "hey!"
     item = find(params[:id])
     journal = item.issue.init_journal(User.current, @notes)
     
@@ -94,26 +93,17 @@ class Item < ActiveRecord::Base
 
   def self.find_by_project(project)
     items = find(:all, :include => :issue, :conditions => "issues.project_id=#{project.id} and parent_id=0", :order => "position ASC")
-    update_same_positioned_items(items)
   end
 
-# this method updates all items with the same position to avoid duplicate position that highly affects the drag n drop ordering of items.
-  def self.update_same_positioned_items(items)
-    temp = []
-    dups = []
-    items.map(&:position).each do |pos| #map only positions
-      if !temp.member?(pos) # store a single copy of a position
-        temp << pos
-      else # add to duplicates
-        dups << pos
-      end
-    end
-    last_pos = (temp.compact - dups.compact.uniq).sort.last.to_i #get last position from uniq positions, reject duplicates first
-    items.each do |item|
-      if dups.uniq.member?(item.position) # if item position has duplicate, update
-        last_pos += 1
-        item.position = last_pos
+  def self.set_ideal_items_positions(pitems, citems)
+    total = pitems.count
+    ideal_positions = (1 .. total).to_a
+    unless ideal_positions == pitems.map(&:position)
+      pitems.each_with_index do |item, index|
+        item.position = index + 1
         item.save
+        filtered_children = children_of(item, citems)
+        set_ideal_items_positions(filtered_children, citems) if filtered_children
       end
     end
   end
@@ -140,8 +130,26 @@ class Item < ActiveRecord::Base
   end
   
   def update_position(params)
-    insert_at(determine_new_position(params))
-    puts "hello!"
+#    insert_at(determine_new_position(params))
+    begin
+      self.position = determine_new_position(params)
+    rescue
+      self.position = self.position
+    end
+    self.save
+    increment_positions_on_lower_items
+  end
+
+  def items_below
+    if is_child?
+      parent_item.children(["position >= #{position.to_i} AND #{scope_condition} AND id <> #{id}"]).sort_by(&:position)
+    else
+      Item.find(:all, :include => :issue,
+                :conditions => "issues.project_id=#{issue.project.id} AND \
+                                position >= #{position.to_i} AND \
+                                #{scope_condition} AND items.id <> #{id}", 
+                :order => "position ASC")
+    end
   end
   
   def is_child?
@@ -157,37 +165,41 @@ class Item < ActiveRecord::Base
   end
   
   #TODO: Refactor query
-  def children
+  def children(more_conditions = [])
     if issue && issue.children.any?
       arr = issue.children.collect {|c| c.id }.join(', ')
-      items = Item.find(:all, :conditions => ["issue_id in (#{arr}) "] )
+      items = Item.find(:all, :conditions => (["issue_id in (#{arr}) "] + more_conditions).join(' AND ') )
     else
       []
     end
   end
-  
-  #def self.sort_by_parent(items)
-  #  sorted = {}
-  #  items.each do |item|
-  #    if item.is_child? and items.include?(item.parent_item)
-  #      sorted[item.parent_item] ||= []
-  #      sorted[item.parent_item] << item
-  #    else
-  #      sorted[item] = []
-  #    end
-  #  end
-  #  i = 0;
-  #  sorted.each do |parent, children|
-  #    parent.position = i+1;
-  #    parent.save
-  #    i=i+1;
-  #    children.each do |c|
-  #      c.position = i+1
-  #      c.save
-  #      i=i+1
-  #    end unless children.empty?
-  #  end
-  #end
+
+# override methods from acts_as_list due to issues on ranking heirarchical items
+  def remove_from_list
+    if in_list?
+      decrement_positions_on_lower_items
+      update_attribute position_column, nil
+    end
+  end
+
+  def increment_positions_on_lower_items
+    if in_list?
+      items_below.each do |item|
+        item.position = item.position + 1
+        item.save
+      end
+    end
+  end
+
+  def decrement_positions_on_lower_items
+    if in_list?
+      items_below.each do |item|
+        item.position = item.position - 1
+        item.save
+      end
+    end
+  end
+################################################################################
   
   def self.sort_by_parent(items)
     sorted = []

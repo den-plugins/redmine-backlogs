@@ -37,26 +37,25 @@ class BacklogsController < ApplicationController
   end
   
   def list_backlog_items
-    if @all_items && !@all_items.empty?
-      @items = {}
-      @backlogs.each do |backlog|
-        tmp_items = @all_items.select {|i| i.backlog_id.eql?(backlog.id)}
-        citems = []
-        items = tmp_items.reject do |item|
-          citems << item if item.is_child?
-          item if item.is_child? and tmp_items.include?(item.parent_item)
-        end
-        @items[backlog.id] = {:pitems => items, :citems => citems}
-      end
-      
-      product_backlog_id = @product_backlog ? @product_backlog.id : 0
-      tmp_items = @all_items.select {|i| i.backlog_id.eql?(0) || i.backlog_id.eql?(product_backlog_id)}
+    @items = {}
+    @backlogs.each do |backlog|
+      tmp_items = @all_items.select {|i| i.backlog_id.eql?(backlog.id)}
       citems = []
       items = tmp_items.reject do |item|
         citems << item if item.is_child?
         item if item.is_child? and tmp_items.include?(item.parent_item)
       end
-      @items[:backlog] = {:pitems => items.sort_by(&:position), :citems => citems.sort_by(&:position)}
+      @items[backlog.id] = {:pitems => items, :citems => citems}
+      Item.set_ideal_items_positions(items, citems)
     end
+    
+    tmp_items = @all_items.select {|i| i.backlog_id.eql?(0) or (@product_backlog and i.backlog_id.eql?(@product_backlog.id))}
+    citems = []
+    items = tmp_items.reject do |item|
+      citems << item if item.is_child?
+      item if item.is_child? and tmp_items.include?(item.parent_item)
+    end
+    @items[:backlog] = {:pitems => items, :citems => citems}
+    Item.set_ideal_items_positions(items, citems)
   end
 end
