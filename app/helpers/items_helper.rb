@@ -81,7 +81,7 @@ module ItemsHelper
   end
   
   def tracker_indicator_or_default(item)
-    return "" if item.new_record?
+    return "" if item.new_record? || item.issue.tracker.name.downcase.eql?('support')
     item.is_child? ? "subtask" : item.issue.tracker.name.downcase
   end
 
