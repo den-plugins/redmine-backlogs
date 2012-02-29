@@ -151,13 +151,17 @@ class Item < ActiveRecord::Base
                 :order => "position ASC")
     end
   end
-  
+
   def is_child?
     issue.parent.present?
   end
   
   def is_parent?
     issue.children.any?
+  end
+
+  def parent_issue
+    issue.parent.other_issue(issue)
   end
   
   def parent_item
