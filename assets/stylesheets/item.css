@@ -181,7 +181,7 @@ li.item .tracker_button_container * { display: inline; font-size: 8px;}
 li.item .tracker_button_container.feature {background-color: #0EA94B; }
 li.item .tracker_button_container.task {background-color: #5081AA; }
 li.item .tracker_button_container.bug {background-color: #5F5F5F; }
-li.item .tracker_button_container.subtask {background-color: #CA1700; }
+li.item .tracker_button_container.subtask {background-color: #65A7D7; }
 
 
 /**** CHECKBOX AND SPINNER ****/
