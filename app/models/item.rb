@@ -180,27 +180,39 @@ class Item < ActiveRecord::Base
 
 # override methods from acts_as_list due to issues on ranking heirarchical items
   def remove_from_list
-    if in_list?
-      decrement_positions_on_lower_items
-      update_attribute position_column, nil
+    if issue
+      if in_list?
+        decrement_positions_on_lower_items
+        update_attribute position_column, nil
+      end
+    else
+      super
     end
   end
 
   def increment_positions_on_lower_items
-    if in_list?
-      items_below.each do |item|
-        item.position = item.position + 1
-        item.save
+    if issue
+      if in_list?
+        items_below.each do |item|
+          item.position = item.position + 1
+          item.save
+        end
       end
+    else
+      super
     end
   end
 
   def decrement_positions_on_lower_items
-    if in_list?
-      items_below.each do |item|
-        item.position = item.position - 1
-        item.save
+    if issue
+      if in_list?
+        items_below.each do |item|
+          item.position = item.position - 1
+          item.save
+        end
       end
+    else
+      super
     end
   end
 ################################################################################
