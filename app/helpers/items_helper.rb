@@ -16,7 +16,7 @@ module ItemsHelper
   end
   
   def description_or_empty(item)
-    item.new_record? ? "" : textilizable(h(item.issue.description))
+    item.new_record? ? "" : (h(item.issue.description))
   end
   
   def element_id_or_empty(item)
