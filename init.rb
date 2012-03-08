@@ -31,7 +31,7 @@ Redmine::Plugin.register :redmine_backlogs do
   menu :project_menu, 
        :backlogs, 
        { :controller => 'backlogs', :action => :index }, 
-       :caption => 'Backlogs', 
+       :caption => 'Backlog Planning',
        :after   => :burndown, 
        :param   => :project_id
 end
