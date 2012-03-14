@@ -260,7 +260,7 @@ li.item div.li_container > .body input.subject {
 li.item div.li_container.editing > .body input.subject {
   display:block;
   height: 15px;
-  left: 64px;
+  left: 88px;
   position: absolute;
   top: 0px;
   width: 388px;
@@ -306,7 +306,7 @@ li.item div.li_container > .body select.assigned_to_id {
 
 li.item div.li_container.editing > .body select.assigned_to_id {
   display: block;
-  left: 465px;
+  left: 489px;
   position: absolute;
   top: 2px;
   width: 108px;
@@ -356,7 +356,7 @@ li.item div.li_container > .body select.status_id {
 
 li.item div.li_container.editing > .body select.status_id {
   display: block;
-  left: 580px;
+  left: 604px;
   position: absolute;
   top: 2px;
   width: 78px;
@@ -423,13 +423,16 @@ li.item div.li_container.editing.maximized > .body textarea.description {
   overflow: auto;
   position: absolute;
   top: 25px;
-  width: 689px;
+  width: 704px;
+  padding: 0;
+  margin: 0;
+  resize: none;
 }
 
 li.item div.li_container.maximized > .body div.description {
   height: 73px;
   padding: 2px;
-  width: 686px;
+  width: 704px;
 }
 
 li.item div.li_container.editing > .body div.description {
@@ -437,11 +440,14 @@ li.item div.li_container.editing > .body div.description {
 }
 
 .backlog.main li.item div.li_container.maximized > .body div.description {
-  width: 405px;
+  width: 435px;
 }
 
 .backlog.main li.item div.li_container.editing.maximized > .body textarea.description {
-  width: 408px;
+  width: 435px;
+  resize: none;
+  padding: 0;
+  margin: 0;
 }
 
 /**** TASKS SECTION ****/
@@ -483,11 +489,12 @@ li.item div.li_container.maximized > .item_tasks {
   height: 113px;
   left: 5px;
   list-style: none;
-  overflow: auto;
   padding: 0px;
   position: absolute;
   top: 130px;
-  width: 688px;
+  width: 706px;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .item_tasks .no_tasks {
@@ -517,11 +524,11 @@ li.item div.li_container.discussion .discussion {
   padding: 0px;
   position: absolute;
   top: 30px;
-  width: 688px;
+  width: 706px;
 }
 
 .backlog.main li.item div.li_container.discussion .discussion {
-  width: 408px;
+  width: 435px;
 }
 
 .backlog.main li.item div.li_container.maximized.discussion .discussion {
@@ -544,8 +551,11 @@ div.discussion form textarea {
   left: 0px;
   overflow: auto;
   position: absolute;
-  top: -1px;
+  top: 0px;
   width: 100%;
+  resize: none;
+  padding: 0;
+  margin: 0;
 }
 
 div.discussion div.comments {
@@ -633,7 +643,7 @@ li.item div.li_container.task > .body div.subject {
 
 li.item div.li_container.task > .body div.subject,
 li.item div.li_container.task > .body input.subject {
-  width: 350px;
+  width: 388px;
 }
 
 li.item div.li_container.task > .body div.assigned_to_id {
@@ -643,7 +653,7 @@ li.item div.li_container.task > .body div.assigned_to_id {
 
 li.item div.li_container.task > .body div.assigned_to_id,
 li.item div.li_container.task > .body select.assigned_to_id {
-  left: 430px;
+  left: 489px;
 }
 
 li.item div.li_container.task > .body div.status_id {
@@ -653,7 +663,7 @@ li.item div.li_container.task > .body div.status_id {
 
 li.item div.li_container.task > .body div.status_id,
 li.item div.li_container.task > .body select.status_id {
-  left: 550px;
+  left: 604px;
 }
 
 li.item div.li_container.task > .body div.status_id .t {
@@ -695,8 +705,10 @@ ul.children {
   background-color: white;
 }
 
-li ul.children li div.subject {
-  padding-left: 11px;
-  background-image: url(../images/corner.png);
-  background-repeat: no-repeat;
+li.item ul.children li.child span.body > div.subject,
+li.item ul.children li.child > div.li_container.editing > .body input.subject {
+ background-image: url("../images/corner.png");
+ background-repeat: no-repeat;
+ padding-left: 11px;
 }
+

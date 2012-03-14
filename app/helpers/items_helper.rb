@@ -33,7 +33,7 @@ module ItemsHelper
   end
   
   def mark_if_child(item, n)
-    !item.new_record? && !n.to_i.eql?(0) ? "c_#{item.issue.parent_issue.id}" : "nonchild"
+    !item.new_record? && !n.to_i.eql?(0) ? "c_#{item.issue.parent_issue.id} child" : "nonchild"
   end
   
   def mark_if_closed(item)
@@ -67,7 +67,7 @@ module ItemsHelper
   def subject_style_if_child(item, n)
     n =  n.to_i
     if !item.new_record? && !n.eql?(0)
-      width = (item.backlog_id.eql?(0) || item.backlog_id.eql?(product_backlog_id)) ? (310 - (n*20) - 15) : (388 - (n*20) - 15)
+      width = (item.backlog_id.eql?(0) || item.backlog_id.eql?(product_backlog_id)) ? (310 - (n*20) - 10) : (388 - (n*20) - 10)
       "margin-left: #{n*20}px; width: #{width}px"
     end
   end

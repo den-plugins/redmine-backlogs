@@ -116,7 +116,7 @@ RBL.Item = Class.create(RBL.Model, {
       }
       
       fieldName = editables[ii].readAttribute('fieldname');
-      
+      fieldStyle= editables[ii].readAttribute('style');
       field = this.getBody().select(inputType + '.' + fieldName)[0];
       if(field==null){
         field = inputType=="select" ? $(fieldName + "_options").cloneNode(true) : new Element(inputType);
@@ -124,6 +124,7 @@ RBL.Item = Class.create(RBL.Model, {
         field.writeAttribute('name', fieldName);
         field.addClassName(fieldName)
         field.addClassName('editor');
+        field.writeAttribute('style', fieldStyle)
         this.getBody().insert(field);
         field.observe('keydown', this.handleKeyPress.bind(this));
       }
