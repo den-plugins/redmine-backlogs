@@ -18,7 +18,9 @@
   </select>
   <% form_tag url_for(:controller => "backlogs", :action => "index", 
                  :project_id => @project, :show_accepted_backlogs => @show_accepted_backlogs), :id => "select_backlog" do %>
-    <%= select_tag "backlog", ["<option>Select an Iteration to show</option>"] << options_from_collection_for_select(@backlogs, "id", "name"),
+    <%= select_tag "backlog_l", ["<option value=''>Product Backlogs</option>"] << options_from_collection_for_select((@backlogs - [@backlog_r]), "id", "name", params[:backlog_l].to_i),
+                      :onchange => "this.form.submit();" %>
+    <%= select_tag "backlog_r", ["<option value=''>Select an Iteration to show</option>"] << options_from_collection_for_select((@backlogs - [@backlog_l]), "id", "name"),
                       :onchange => "this.form.submit();" %>
   <% end %>
   <div id="show_accepted_backlogs_container">
@@ -29,19 +31,28 @@
 </div>
 
 <div class="backlog main">
-  <%= render :partial => "header", :locals => { :backlog => nil } %>
-  <% if @items && @items[:backlog] %>
-  <ul>
-    <% @items[:backlog][:pitems].each do |item| %>
-      <%= render :partial => "items/item", :locals => {:item => item, :citems => @items[:backlog][:citems]} %>
+  <% if @backlog_l.blank? %>
+    <%= render :partial => "header", :locals => { :backlog => nil } %>
+    <% if @items && @items[:backlog] %>
+    <ul>
+      <% @items[:backlog][:pitems].each do |item| %>
+        <%= render :partial => "items/item", :locals => {:item => item, :citems => @items[:backlog][:citems]} %>
+      <% end %>
+    </ul>
     <% end %>
-  </ul>
+  <% else %>
+    <%= render :partial => "header", :locals => { :backlog => @backlog_l } %>
+    <ul>
+      <% @items[@backlog_l.id][:pitems].each do |item| %>
+        <%= render :partial => "items/item", :locals => {:item => item, :citems => @items[@backlog_l.id][:citems]} %>
+      <% end %>
+    </ul>
   <% end %>
 </div>
 
 <div id="backlog_body">
-  <% unless @backlog  %>
-    <%- @backlogs.each do |backlog| %>
+  <% unless @backlog_r  %>
+    <%- (@backlogs - [@backlog_l]).each do |backlog| %>
       <%- if backlog.version.state %>
       <div class="backlog <%= backlog.is_closed? ? "closed" : "" %>">
         <%= render :partial => "header", :locals => { :backlog => backlog } %>
@@ -54,11 +65,11 @@
       <%- end %>
     <%- end %>
   <% else %>
-    <div class="backlog <%= @backlog.is_closed? ? "closed" : "" %>">
-      <%= render :partial => "header", :locals => { :backlog => @backlog } %>
+    <div class="backlog <%= @backlog_r.is_closed? ? "closed" : "" %>">
+      <%= render :partial => "header", :locals => { :backlog => @backlog_r } %>
       <ul>
-        <% @items[@backlog.id][:pitems].each do |item| %>
-          <%= render :partial => "items/item", :locals => {:item => item, :citems => @items[@backlog.id][:citems]} %>
+        <% @items[@backlog_r.id][:pitems].each do |item| %>
+          <%= render :partial => "items/item", :locals => {:item => item, :citems => @items[@backlog_r.id][:citems]} %>
         <% end %>
         </ul>
     </div>

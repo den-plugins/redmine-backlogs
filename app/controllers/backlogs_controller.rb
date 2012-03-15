@@ -10,7 +10,8 @@ class BacklogsController < ApplicationController
     @item_template = Item.new
     @backlogs = Backlog.find_by_project(@project, (params[:show_accepted_backlogs] ? nil : 3))
     @product_backlog = Backlog.find_product_backlog(@project)
-    @backlog = Backlog.find(params[:backlog]) if params[:backlog]
+    @backlog_l = Backlog.find(params[:backlog_l]) unless params[:backlog_l].blank?
+    @backlog_r = Backlog.find(params[:backlog_r]) unless params[:backlog_r].blank?
     @show_accepted_backlogs = params[:show_accepted_backlogs] ? params[:show_accepted_backlogs] : false
     @back = url_for(:controller => 'backlogs', :action => 'index')
     
