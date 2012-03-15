@@ -684,11 +684,11 @@ li.item div.li_container.task.editing > .body input.points {
   display: none;
 }
 
-li.item.task ul.item_tasks {
+li.item div.li_container.task ul.item_tasks {
   display: none;
 }
 
-li.item.task div.discussion {
+li.item div.li_container.task div.discussion {
   display: none;
 }
 

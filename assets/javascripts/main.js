@@ -167,7 +167,6 @@ RBL.Model = Class.create({
   },
   
   getSpecialChildren: function(selector, element) {
-    if ($(this.getRoot().id) == null) { RBL.log(this);}
     if ($(this.getRoot().id) == null) { return this.getChildren(selector); }
     else {
       var selected = this.getRoot().select(selector);
@@ -197,9 +196,7 @@ RBL.Model = Class.create({
   },
   
   getSpecialChild: function(selector) {
-    RBL.log(this);
     var tmp = this.getSpecialChildren(selector, this.getRoot().id);
-    
     switch(tmp.length){
       case 0  : return null  ; break;
       default : return tmp[0]; break;
