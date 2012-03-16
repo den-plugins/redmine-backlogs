@@ -64,10 +64,10 @@ module ItemsHelper
     !item.new_record? && item.is_child? ? "child-subject" : ""
   end
   
-  def subject_style_if_child(item, n)
+  def subject_style_if_child(item, n, at_left = false)
     n =  n.to_i
     if !item.new_record? && !n.eql?(0)
-      width = (item.backlog_id.eql?(0) || item.backlog_id.eql?(product_backlog_id)) ? (310 - (n*20) - 10) : (388 - (n*20) - 10)
+      width = (item.backlog_id.eql?(0) || item.backlog_id.eql?(product_backlog_id) || at_left) ? (310 - (n*20) - 10) : (388 - (n*20) - 10)
       "margin-left: #{n*20}px; width: #{width}px"
     end
   end

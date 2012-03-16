@@ -44,7 +44,7 @@
     <%= render :partial => "header", :locals => { :backlog => @backlog_l } %>
     <ul>
       <% @items[@backlog_l.id][:pitems].each do |item| %>
-        <%= render :partial => "items/item", :locals => {:item => item, :citems => @items[@backlog_l.id][:citems]} %>
+        <%= render :partial => "items/item", :locals => {:item => item, :citems => @items[@backlog_l.id][:citems], :at_left => true} %>
       <% end %>
     </ul>
   <% end %>
