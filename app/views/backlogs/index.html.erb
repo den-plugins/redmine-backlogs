@@ -18,10 +18,8 @@
   </select>
   <% form_tag url_for(:controller => "backlogs", :action => "index", 
                  :project_id => @project, :show_accepted_backlogs => @show_accepted_backlogs), :id => "select_backlog" do %>
-    <%= select_tag "backlog_l", ["<option value=''>Product Backlogs</option>"] << options_from_collection_for_select((@backlogs - [@backlog_r]), "id", "name", params[:backlog_l].to_i),
-                      :onchange => "this.form.submit();" %>
-    <%= select_tag "backlog_r", ["<option value=''>Select an Iteration to show</option>"] << options_from_collection_for_select((@backlogs - [@backlog_l]), "id", "name"),
-                      :onchange => "this.form.submit();" %>
+     <%= hidden_field_tag 'backlog_l', '' %>
+     <%= hidden_field_tag 'backlog_r', '' %>
   <% end %>
   <div id="show_accepted_backlogs_container">
     <% form_for :backlogs, @backlogs, :url => {:controller => "backlogs", :action => "index", :project_id => @project} do |f| %>
@@ -31,6 +29,8 @@
 </div>
 
 <div class="backlog main">
+  <%= select_tag "sbacklog_l", ["<option value=''>Product Backlogs</option>"] << options_from_collection_for_select((@backlogs - [@backlog_r]), "id", "name", params[:backlog_l].to_i),
+                      :onchange => "setSelectedBacklogs(); $('select_backlog').submit();" %>
   <% if @backlog_l.blank? %>
     <%= render :partial => "header", :locals => { :backlog => nil } %>
     <% if @items && @items[:backlog] %>
@@ -51,6 +51,8 @@
 </div>
 
 <div id="backlog_body">
+  <%= select_tag "sbacklog_r", ["<option value=''>Select an Iteration to show</option>"] << options_from_collection_for_select((@backlogs - [@backlog_l]), "id", "name"),
+                      :onchange => "setSelectedBacklogs(); $('select_backlog').submit();" %>
   <% unless @backlog_r  %>
     <%- (@backlogs - [@backlog_l]).each do |backlog| %>
       <%- if backlog.version.state %>
@@ -105,4 +107,8 @@
 
 <script>
   var projectID = '<%= @project.identifier %>';
+  function setSelectedBacklogs(){
+    $('backlog_l').value = $("sbacklog_l").getValue();
+    $('backlog_r').value = $("sbacklog_r").getValue();
+  }
 </script>
