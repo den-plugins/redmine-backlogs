@@ -28,9 +28,10 @@
   </div>
 </div>
 
-<div class="backlog main">
+<div class="backlog main<%= ' left' unless @backlog_l.blank? %>">
   <%= select_tag "sbacklog_l", ["<option value=''>Product Backlogs</option>"] << options_from_collection_for_select((@backlogs - [@backlog_r]), "id", "name", params[:backlog_l].to_i),
-                      :onchange => "setSelectedBacklogs(); $('select_backlog').submit();" %>
+                      :onchange => "setSelectedBacklogs(); $('select_backlog').submit();",
+                      :style => "margin: 0 0 5px 0;" %>
   <% if @backlog_l.blank? %>
     <%= render :partial => "header", :locals => { :backlog => nil } %>
     <% if @items && @items[:backlog] %>
@@ -52,7 +53,8 @@
 
 <div id="backlog_body">
   <%= select_tag "sbacklog_r", ["<option value=''>Select an Iteration to show</option>"] << options_from_collection_for_select((@backlogs - [@backlog_l]), "id", "name"),
-                      :onchange => "setSelectedBacklogs(); $('select_backlog').submit();" %>
+                      :onchange => "setSelectedBacklogs(); $('select_backlog').submit();",
+                      :style => "margin: 0 0 5px 0;" %>
   <% unless @backlog_r  %>
     <%- (@backlogs - [@backlog_l]).each do |backlog| %>
       <%- if backlog.version.state %>

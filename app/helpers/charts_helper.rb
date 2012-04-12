@@ -11,7 +11,11 @@ module ChartsHelper
   
   def x_step(values, data_points = nil)
     data_points = data_points || values.length
-    (100.0/(data_points-1)).round(2)
+    begin
+      (100.0/(data_points-1)).round(2)
+    rescue
+      0
+    end
   end
   
   def x_labels(labels)

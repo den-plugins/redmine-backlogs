@@ -129,8 +129,6 @@ THE SOFTWARE.
   float: left;
   height: 100%;
   margin: 0px;
-/*  right: 0px;*/
-/*  top: 0px;*/
   width: 450px;
 }
 
@@ -162,9 +160,13 @@ THE SOFTWARE.
   -webkit-border-radius-topright: 5px;
 }
 
+.backlog.main.left .header {height: 25px;}
+
 .backlog.maximized .header {
-  height: 55px;
+  height: 71px;
 }
+
+.backlog.main.left.maximized .header {height: 86px;}
 
 .backlog .header .id {
   display: none;
@@ -173,7 +175,7 @@ THE SOFTWARE.
 .backlog .header > .editable:hover,
 .backlog .header > .editable .t:hover,
 .backlog .header > div .editable:hover {
-  background-color: #efefef;
+  background-color: #efefef ! important;
   cursor: text;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
@@ -336,7 +338,6 @@ THE SOFTWARE.
 /**** START DATE ****/
 
 .backlog .header .start_date_container {
-/*  background-color: #ccc;*/
   display: block;
   height: 25px;
   left: 350px;
@@ -344,6 +345,8 @@ THE SOFTWARE.
   top: 0px;
   width: 120px;
 }
+
+.backlog.main.left .header .start_date_container {top: 25px; left: 21px;}
 
 .start_date_container .label {
   display: block;
@@ -401,7 +404,6 @@ THE SOFTWARE.
 /**** EFFECTIVE DATE ****/
 
 .backlog .header .effective_date_container {
-/*  background-color: #ccc;*/
   display: block;
   height: 25px;
   left: 471px;
@@ -409,6 +411,8 @@ THE SOFTWARE.
   top: 0px;
   width: 120px;
 }
+
+.backlog.main.left .header .effective_date_container {top: 25px; left: 142px;}
 
 .effective_date_container .label {
   display: block;
@@ -503,8 +507,12 @@ THE SOFTWARE.
   overflow: auto;
   position: absolute;
   top: 25px;
-  width: 430px;
+  width: 603px;
+  resize: none;
+  margin-top: 7px;
 }
+
+.backlog.main.left.maximized .header .description {top: 43px; width: 335px;}
 
 .backlog.maximized .header div.description {
   display: block;
@@ -543,13 +551,15 @@ THE SOFTWARE.
   font-size: 10px;  
   font-weight: normal;
   height: 15px;
-  left: 580px;
+  left: 638px;
   overflow: hidden;
   padding: 2px 2px 2px 9px;
   position: absolute;
   width: 68px;
   top: 33px;
 }
+
+.backlog.main.left .header div.is_closed {top: 51px; left: 368px;}
 
 .backlog .header select.is_closed * {
   display: block;
@@ -564,11 +574,13 @@ THE SOFTWARE.
   display: block;
   font-family: Verdana, Arial, sans-serif;
   font-size: 10px;
-  left: 580px;
+  left: 638px;
   position: absolute;
   top: 32px;
   width: 78px;
 }
+
+.backlog.main.left.maximized .header.editing  select.is_closed {top: 49px; left: 368px;}
 
 /*
 .backlog.main li.item  > .body .status_id {
@@ -592,24 +604,35 @@ THE SOFTWARE.
   display: block;
   height: 330px;
   text-align: center;
-  width: 700px;
+  width: 720px;
+  overflow: auto;
 }
+
+.backlog.main.left.show_chart .chart_area {width: 450px;}
+.backlog.main.left.show_chart.maximized .chart_area {height: 270px;}
 
 .backlog.show_chart .chart_area span {
   background-color: #fff;
   display: block;
-  height: 315px;
+  max-height: 315px;
   margin-left: 20px;
   padding: 5px;
-  width: 650px;
+  max-width: 688px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
+  height: 315px;
+  width: 688px;
 }
 
+.backlog.main.left.show_chart .chart_area span {width: 418px;height: 290px;margin-top: 25px;max-height: 290px;max-width: 418px;}
+.backlog.main.left.show_chart.maximized .chart_area span {height: 255px; margin-top: 0;}
+
 .backlog.show_chart .chart_area img {
-  height: 300px;
-  width: 650px;
+  height: 280px;
+  width: 630px;
 }
+
+.backlog.main.left.show_chart .chart_area img { height: 237px; width: 400px;}
 
 .backlog.show_chart .chart_area a {
   font-family: Verdana, Arial, sans-serif;  
