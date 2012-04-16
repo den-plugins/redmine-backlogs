@@ -358,6 +358,7 @@ RBL.Backlog = Class.create(RBL.Model, {
                               tree : true,
                               treeTag :'ul',
                               dropOnEmpty : true,
+                              scroll : window,
                               onUpdate    : updateHandler,
                               onChange    : changeHandler });
 
@@ -370,6 +371,7 @@ RBL.Backlog = Class.create(RBL.Model, {
           containment: children[i],
           only: "c_" + parent_id,
           dropOnEmpty: true,
+          scroll : window,
           onUpdate: this.itemDropped.bind(this),
           onChange: this.itemDragging.bind(this)
       });
