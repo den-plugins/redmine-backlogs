@@ -129,7 +129,7 @@ THE SOFTWARE.
   float: left;
   height: 100%;
   margin: 0px;
-  width: 450px;
+  width: 465px;
 }
 
 .backlog > ul {
@@ -638,3 +638,8 @@ THE SOFTWARE.
   font-family: Verdana, Arial, sans-serif;  
   font-size: 10px;
 }
+
+.bl_scroll { height: 500px !important; overflow: auto; overflow-y: scroll; }
+.bl_selections { height: 30px; }
+.bl_select_l { width: 465px; float: left; }
+.bl_select_r { width: 720px; float: left; padding-left: 10px; }
