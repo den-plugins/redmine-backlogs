@@ -639,7 +639,7 @@ THE SOFTWARE.
   font-size: 10px;
 }
 
-.bl_scroll { height: 500px !important; overflow: auto; overflow-y: scroll; }
+.bl_scroll { width: 735px; height: 500px !important; overflow-x: auto; overflow-y: auto; }
 .bl_selections { height: 30px; }
 .bl_select_l { width: 465px; float: left; }
-.bl_select_r { width: 720px; float: left; padding-left: 10px; }
+.bl_select_r { width: 735px; float: left; padding-left: 7px; }

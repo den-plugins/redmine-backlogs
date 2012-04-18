@@ -41,8 +41,8 @@
   </div>
 </div>
 
+<div class="backlog main<%= ' left' unless @backlog_l.blank? %> bl_scroll">
   <% if @backlog_l.blank? %>
-<div class="backlog main<%= ' left' unless @backlog_l.blank? %> <%= ' bl_scroll' if @items[:backlog][:pitems].count > 5 %> ">
     <%= render :partial => "header", :locals => { :backlog => nil } %>
     <% if @items && @items[:backlog] %>
     <ul>
@@ -52,7 +52,6 @@
     </ul>
     <% end %>
   <% else %>
-<div class="backlog main<%= ' left' unless @backlog_l.blank? %> <%= ' bl_scroll' if @items[@backlog_l.id][:pitems].count > 5 %> ">
     <%= render :partial => "header", :locals => { :backlog => @backlog_l } %>
     <ul>
       <% @items[@backlog_l.id][:pitems].each do |item| %>
@@ -62,30 +61,29 @@
   <% end %>
 </div>
 
+<div id="backlog_body" class="bl_scroll">
   <% unless @backlog_r  %>
-<div id="backlog_body" class="<%= @backlogs.empty? ? "" : "bl_scroll" %>">
     <%- (@backlogs - [@backlog_l]).each do |backlog| %>
       <%- if backlog.version.state %>
-        <div class="backlog <%= backlog.is_closed? ? "closed" : "" %>">
-          <%= render :partial => "header", :locals => { :backlog => backlog } %>
-          <ul>
-            <% @items[backlog.id][:pitems].each do |item| %>
-              <%= render :partial => "items/item", :locals => {:item => item, :citems => @items[backlog.id][:citems]} %>
-            <% end %>
-          </ul>
-        </div>
-        <%- end %>
-    <%- end %>
-  <% else %>
-<div id="backlog_body" class="<%= 'bl_scroll' if @items[@backlog_r.id][:pitems].count > 5 %>" >
-      <div class="backlog <%= @backlog_r.is_closed? ? "closed" : "" %>">
-        <%= render :partial => "header", :locals => { :backlog => @backlog_r } %>
+      <div class="backlog <%= backlog.is_closed? ? "closed" : "" %>">
+        <%= render :partial => "header", :locals => { :backlog => backlog } %>
         <ul>
-          <% @items[@backlog_r.id][:pitems].each do |item| %>
-            <%= render :partial => "items/item", :locals => {:item => item, :citems => @items[@backlog_r.id][:citems]} %>
+          <% @items[backlog.id][:pitems].each do |item| %>
+            <%= render :partial => "items/item", :locals => {:item => item, :citems => @items[backlog.id][:citems]} %>
           <% end %>
         </ul>
       </div>
+      <%- end %>
+    <%- end %>
+  <% else %>
+    <div class="backlog <%= @backlog_r.is_closed? ? "closed" : "" %>">
+      <%= render :partial => "header", :locals => { :backlog => @backlog_r } %>
+      <ul>
+        <% @items[@backlog_r.id][:pitems].each do |item| %>
+          <%= render :partial => "items/item", :locals => {:item => item, :citems => @items[@backlog_r.id][:citems]} %>
+        <% end %>
+        </ul>
+    </div>
   <% end %>
 </div>
 
