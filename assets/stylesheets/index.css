@@ -95,7 +95,7 @@ THE SOFTWARE.
 
 #backlog_body {
   position: relative;
-  padding-left: 10px;
+  padding-left: 20px;
   float: left;
 /*  width: 1130px;*/
 /*  border: 1px solid #333;*/
@@ -642,4 +642,4 @@ THE SOFTWARE.
 .bl_scroll { width: 735px; height: 500px !important; overflow-x: auto; overflow-y: auto; }
 .bl_selections { height: 30px; }
 .bl_select_l { width: 465px; float: left; }
-.bl_select_r { width: 735px; float: left; padding-left: 7px; }
+.bl_select_r { width: 735px; float: left; padding-left: 17px; }
