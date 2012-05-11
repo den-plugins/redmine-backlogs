@@ -352,13 +352,14 @@ RBL.Backlog = Class.create(RBL.Model, {
     var backlogs = $$(".backlog > ul").map(function(ul){ return ul.identify() });
     var updateHandler = this.itemDropped.bind(this);
     var changeHandler = this.itemDragging.bind(this);
+    Position.includeScrollOffsets = true; 
     Sortable.create(this.getChild('ul').identify(), {
                               containment : backlogs,
                               only : 'nonchild',
                               tree : true,
                               treeTag :'ul',
                               dropOnEmpty : true,
-                              scroll : window,
+                              scroll : this,
                               onUpdate    : updateHandler,
                               onChange    : changeHandler });
 
@@ -371,7 +372,7 @@ RBL.Backlog = Class.create(RBL.Model, {
           containment: children[i],
           only: "c_" + parent_id,
           dropOnEmpty: true,
-          scroll : window,
+          scroll : this,
           onUpdate: this.itemDropped.bind(this),
           onChange: this.itemDragging.bind(this)
       });
