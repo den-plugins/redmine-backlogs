@@ -16,7 +16,12 @@ class ItemsController < ApplicationController
 
   def update
     @product_backlog = Backlog.find_product_backlog(@project)
-    item = Item.update(params)
+    begin
+      item = Item.update(params)
+    rescue ActiveRecord::StaleObjectError
+      # Optimistic locking exception
+      flash.now[:error] = l(:notice_locking_conflict)
+    end
     render :partial => "item", :locals => { :item => item }
   end
   
