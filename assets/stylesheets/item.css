@@ -108,7 +108,7 @@ li.item div.li_container:hover .controls {
   position: absolute;
   text-align: center;
   top: -22px;
-  width: 112px;
+  width: 170px;
   -moz-border-radius-topleft: 5px;
   -webkit-border-radius-topleft: 5px;
   -moz-border-radius-topright: 5px;
@@ -712,3 +712,8 @@ li.item ul.children li.child > div.li_container.editing > .body input.subject {
  padding-left: 11px;
 }
 
+/*** Custom ***/
+.hidden {display:none;}
+div.expand {left:112px}
+div.controls .disabled, div.controls .disabled:hover {background-color:#777}
+/**************/

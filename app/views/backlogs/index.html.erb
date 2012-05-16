@@ -1,6 +1,8 @@
 <% content_for :header_tags do %>
     <%= stylesheet_link_tag 'index', 'item', :plugin => 'redmine_backlogs', :media => 'screen, print' %>
     <%= javascript_include_tag  'main', 'backlog', 'item', 'task', :plugin => 'redmine_backlogs' %>
+    <%= javascript_include_tag "jquery-1.7.1.min.js", :plugin => 'redmine_backlogs' %>
+    <%= javascript_include_tag 'custom_backlog', :plugin => 'redmine_backlogs' %>
 <% end %>
 <div class="backlog_toolbar">
   <p class="contextual">

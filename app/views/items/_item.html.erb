@@ -5,6 +5,11 @@
         <div class="controls">
             <div class="more">more</div>
             <div class="talk">talk</div>
+            <% if item.children.empty? %>
+              <div class="expand disabled">+</div>
+            <% else %>
+              <div class="expand">+</div>
+            <% end %>
         </div>
         <span class="body">
             <input type="checkbox" class="checkbox"/>
@@ -42,7 +47,7 @@
     <% unless item.new_record? %>
       <% begin; citems = citems; rescue; citems = []; end %>
       <% filtered_children = children_of(item, citems) %>
-      <ul class="children">
+      <ul class="children hidden">
       <% level = level.to_i + 1 %>
       <% filtered_children.each do |child| %>
         <% locals = {:item => child, :citems => citems, :level => level} %>
