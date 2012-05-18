@@ -21,8 +21,9 @@ class ItemsController < ApplicationController
     rescue ActiveRecord::StaleObjectError
       # Optimistic locking exception
       render :text => "Stale Object Error", :status => 409
+    else
+      render :partial => "item", :locals => { :item => item }
     end
-    render :partial => "item", :locals => { :item => item }
   end
   
   private
