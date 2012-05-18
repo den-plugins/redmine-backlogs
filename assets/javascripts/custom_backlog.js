@@ -11,19 +11,40 @@ function init() {
   }
   
   Custom.init = function() {
-    jQuery("div.expand").live("click", function(){
+    jQuery("div.expand-toggle").live("click", function(){
       var me = jQuery(this);
       if(!this.hasClassName("disabled")) {
         if(me.text() == "+") {
             me.parent().parent().parent().find(".children").removeClass("hidden");
             me.html("-");
+            me.removeClass("expand");
+            me.addClass("collapse");
         } else {
             me.parent().parent().parent().find(".children").addClass("hidden");
             me.html("+");
+            me.addClass("expand");
+            me.removeClass("collapse");
         }
+      }
+    });
+
+    jQuery(".expand-collapse-all").live("click", function(){
+      var me = jQuery(this);
+      if(me.text()=="Expand All") {
+        me.html("Collapse All");
+        jQuery(".expand").each(function(index, value){
+          jQuery("#"+value.id).click()
+        });
+      } else {
+        me.html("Expand All");
+        jQuery(".collapse").each(function(index, value){
+          jQuery("#"+value.id).click()
+        });
       }
     });
   }
 }
 
-
+/*
+ *
+*/

@@ -8,6 +8,7 @@
   <p class="contextual">
     <%= link_to l(:label_feature_new), { :controller => 'custom_issues' , :action => 'new', :project_id => @project, :tracker_id => 2, :back_to => @back }, :class => 'b-icon icon-add' %>
   </p>
+  <a class="expand-collapse-all">Expand All</a>
   <select id="move_items" class="actions">
     <option>Move selected items to...</option>
     <% backlogs = @backlog ? [@backlog] : @backlogs %>

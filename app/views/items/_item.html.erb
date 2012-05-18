@@ -1,14 +1,13 @@
 <% begin; level = level; rescue; level = 0; end %>
 <% is_left = (defined?(at_left) ? true : false) %>
+<% !item.children.empty? ? indicator="expand-indicator" : indicator = nil %>
 <li class="item <%= mark_if_closed(item) %> <%= mark_if_task(item) %> <%= mark_if_child(item, level) %>" id="<%= element_id_or_empty(item) %>">
-    <div class="li_container <%= mark_if_closed(item) %> <%= mark_if_task(item) %>">
-        <div class="controls">
+      <div class="li_container <%= mark_if_closed(item) %> <%= mark_if_task(item) %>">
+        <div class="controls <%= indicator %>">
             <div class="more">more</div>
             <div class="talk">talk</div>
-            <% if item.children.empty? %>
-              <div class="expand disabled">+</div>
-            <% else %>
-              <div class="expand">+</div>
+            <% if !item.children.empty? %>
+              <div class="expand-toggle expand">+</div>
             <% end %>
         </div>
         <span class="body">

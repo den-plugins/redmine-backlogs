@@ -100,7 +100,7 @@ li.item .controls {
   display: none;
 }
 
-li.item div.li_container:hover .controls {
+li.item div.li_container.expand:hover .controls, li.item div.li_container:hover .controls {
   background-color: #ff6;
   display: block;
   height: 22px;
@@ -108,12 +108,14 @@ li.item div.li_container:hover .controls {
   position: absolute;
   text-align: center;
   top: -22px;
-  width: 170px;
   -moz-border-radius-topleft: 5px;
   -webkit-border-radius-topleft: 5px;
   -moz-border-radius-topright: 5px;
   -webkit-border-radius-topright: 5px;
 }
+
+li.item div.li_container:hover .controls {width:115px;}
+li.item div.li_container:hover .controls.expand-indicator {width:170px;}
 
 li.item .controls * {
   background-color: #ccc;
@@ -712,8 +714,10 @@ li.item ul.children li.child > div.li_container.editing > .body input.subject {
  padding-left: 11px;
 }
 
-/*** Custom ***/
+/*** Custom Backlogs ***/
 .hidden {display:none;}
-div.expand {left:112px}
-div.controls .disabled, div.controls .disabled:hover {background-color:#777}
+div.expand-toggle {left:112px}
+
+#main a.expand-collapse-all {padding:4px; float:right; color:white; font-size:11px; font-weight:bold;}
+#main a.expand-collapse-all:hover {cursor:pointer;}
 /**************/
