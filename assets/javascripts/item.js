@@ -303,7 +303,7 @@ RBL.Item = Class.create(RBL.Model, {
     var params   = this.toParams();
     var url;
     var callback = null;
-    
+    var me = this;
     this._saveCallback = saveCallback;
     
     if(this.isNew()){
@@ -318,9 +318,12 @@ RBL.Item = Class.create(RBL.Model, {
                          id        : this.getValue('.id') });
       callback = this.itemUpdated.bind(this);
     }
-
+    ;
     this.markSaving();
-    new Ajax.Request(url, {method: "post", parameters: params, onComplete: callback});
+    new Ajax.Request(url, {method: "post", 
+                           parameters: params, 
+                           onComplete: callback, 
+                           onException: function(){me._rootElement.setStyle({color:"red", fontWeight:"bold"})}});
   },
   
   saveComment: function(event){

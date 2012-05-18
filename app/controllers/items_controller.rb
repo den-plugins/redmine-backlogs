@@ -20,7 +20,7 @@ class ItemsController < ApplicationController
       item = Item.update(params)
     rescue ActiveRecord::StaleObjectError
       # Optimistic locking exception
-      flash.now[:error] = l(:notice_locking_conflict)
+      render :text => "Stale Object Error", :status => 409
     end
     render :partial => "item", :locals => { :item => item }
   end
