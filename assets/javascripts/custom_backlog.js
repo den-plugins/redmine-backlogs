@@ -26,17 +26,17 @@ function init() {
             me.removeClass("collapse");
         }
       }
-    });
 
+    });
     jQuery(".expand-collapse-all").live("click", function(){
       var me = jQuery(this);
-      if(me.text()=="Expand All") {
-        me.html("Collapse All");
+      if(me.hasClass("expand")) {
+        me.removeClass("expand").addClass("collapse");
         jQuery(".expand").each(function(index, value){
           jQuery("#"+value.id).click()
         });
       } else {
-        me.html("Expand All");
+        me.removeClass("collapse").addClass("expand");
         jQuery(".collapse").each(function(index, value){
           jQuery("#"+value.id).click()
         });
