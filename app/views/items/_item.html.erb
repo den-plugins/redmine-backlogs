@@ -1,4 +1,5 @@
 <% begin; level = level; rescue; level = 0; end %>
+<% begin; citems = citems; rescue; citems = []; end %>
 <% is_left = (defined?(at_left) ? true : false) %>
 <% !item.children.empty? ? indicator="expand-indicator" : indicator = nil %>
 <li class="item <%= mark_if_closed(item) %> <%= mark_if_task(item) %> <%= mark_if_child(item, level) %>" id="<%= element_id_or_empty(item) %>">
@@ -6,7 +7,7 @@
         <div class="controls <%= indicator %>">
             <div class="more">more</div>
             <div class="talk">talk</div>
-            <% if !item.children.empty? %>
+            <% if !item.children.empty? and !citems.empty? and !(citems & item.children).empty?%>
               <div class="expand-toggle expand">+</div>
             <% end %>
         </div>
@@ -44,7 +45,6 @@
         <ul class="item_tasks loading"></ul>
     </div>
     <% unless item.new_record? %>
-      <% begin; citems = citems; rescue; citems = []; end %>
       <% filtered_children = children_of(item, citems) %>
       <ul class="children hidden">
       <% level = level.to_i + 1 %>
