@@ -28,7 +28,7 @@ class ItemsController < ApplicationController
     else
       issue = Item.find(params[:id]).issue
       if issue.parent
-        issue.fixed_version_id = issue.parent.fixed_version_id
+        issue.fixed_version_id = issue.parent.issue_from.fixed_version_id
         issue.save!
       end
       if issue.children.count > 0
