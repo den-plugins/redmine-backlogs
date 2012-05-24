@@ -21,7 +21,7 @@ class ItemsController < ApplicationController
     begin
       item = Item.update(params)
     rescue ActiveRecord::StaleObjectError
-      temp.reload!
+      temp.reload
       item = Item.update(params)
     end
     
