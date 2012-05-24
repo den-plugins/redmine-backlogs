@@ -18,14 +18,11 @@ class ItemsController < ApplicationController
     @product_backlog = Backlog.find_product_backlog(@project)
     item = nil
     flag = true
-    Item.transaction do
-      begin
-        item = Item.update(params)
-      rescue ActiveRecord::StaleObjectError
-        # Optimistic locking exception
-        raise ActiveRecord::Rollback, "409 Error"
-        flag = false
-      end
+    begin
+      item = Item.update(params)
+    rescue ActiveRecord::StaleObjectError
+      # Optimistic locking exception
+      flag = false
     end
     curr = Item.find(params[:id]).issue
     if !curr.children.empty? #ensure that children follows parent
