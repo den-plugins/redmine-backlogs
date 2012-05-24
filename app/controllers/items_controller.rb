@@ -16,7 +16,6 @@ class ItemsController < ApplicationController
 
   def update
     @product_backlog = Backlog.find_product_backlog(@project)
-    item = nil
     flag = true
     begin
       item = Item.update(params)
@@ -24,14 +23,19 @@ class ItemsController < ApplicationController
       # Optimistic locking exception
       flag = false
     end
-    curr = Item.find(params[:id]).issue
-    if curr.parent #ensure that children follows parent
-      curr.fixed_version_id = curr.parent.fixed_version_id
-      curr.save!
-    end
     if flag
       render :partial => "item", :locals => { :item => item } 
     else
+      if item.parent
+        item.fixed_version_id = item.parent.fixed_version_id
+        item.save!
+      end
+      if item.children.count > 0
+        item.children.each do |i|
+          i.fixed_version_id = item.fixed_version_id
+          i.save!
+        end
+      end
       render :text => "409 Error", :status => 409
     end
   end
