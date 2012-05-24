@@ -26,13 +26,14 @@ class ItemsController < ApplicationController
     if flag
       render :partial => "item", :locals => { :item => item } 
     else
-      if item.parent
-        item.fixed_version_id = item.parent.fixed_version_id
-        item.save!
+      issue = Item.find(params[:id]).issue
+      if issue.parent
+        issue.fixed_version_id = issue.parent.fixed_version_id
+        issue.save!
       end
-      if item.children.count > 0
-        item.children.each do |i|
-          i.fixed_version_id = item.fixed_version_id
+      if issue.children.count > 0
+        issue.children.each do |i|
+          i.fixed_version_id = issue.fixed_version_id
           i.save!
         end
       end
