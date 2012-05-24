@@ -25,8 +25,9 @@ class ItemsController < ApplicationController
       flag = false
     end
     curr = Item.find(params[:id]).issue
-    if !curr.children.empty? #ensure that children follows parent
-      curr.children.each{|i| i.fixed_version_id = curr.fixed_version_id; i.save!}
+    if curr.parent #ensure that children follows parent
+      curr.fixed_version_id = curr.parent.fixed_version_id
+      curr.save!
     end
     if flag
       render :partial => "item", :locals => { :item => item } 
