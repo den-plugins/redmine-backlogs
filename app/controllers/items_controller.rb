@@ -17,16 +17,25 @@ class ItemsController < ApplicationController
   def update
     @product_backlog = Backlog.find_product_backlog(@project)
     item = nil
-    Item.transaction do |i|
+    flag = true
+    Item.transaction do
       begin
-        i = Item.update(params)
+        item = Item.update(params)
       rescue ActiveRecord::StaleObjectError
         # Optimistic locking exception
-      raise ActiveRecord::Rollback, "409 Error"
+        raise ActiveRecord::Rollback, "409 Error"
+        flag = false
       end
-      item = i
     end
-    render :partial => "item", :locals => { :item => item }
+    curr = Item.find(params[:id]).issue
+    if !curr.children.empty? #ensure that children follows parent
+      curr.children.each{|i| i.fixed_version_id = curr.fixed_version_id; i.save!}
+    end
+    if flag
+      render :partial => "item", :locals => { :item => item } 
+    else
+      render :text => "409 Error", :status => 409
+    end
   end
   
   private
