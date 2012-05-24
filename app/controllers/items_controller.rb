@@ -17,15 +17,16 @@ class ItemsController < ApplicationController
   def update
     @product_backlog = Backlog.find_product_backlog(@project)
     flag = true
-    begin
+#    begin
       item = Item.update(params)
+=begin
     rescue ActiveRecord::StaleObjectError
       # Optimistic locking exception
       flag = false
     end
-    if flag
+=end    if flag
       render :partial => "item", :locals => { :item => item } 
-    else
+=begin    else
       issue = Item.find(params[:id]).issue
       if issue.parent
         issue.fixed_version_id = issue.parent.issue_from.fixed_version_id
@@ -38,7 +39,7 @@ class ItemsController < ApplicationController
         end
       end
       render :text => "409 Error", :status => 409
-    end
+=end    end
   end
   
   private
