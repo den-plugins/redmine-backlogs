@@ -1,7 +1,7 @@
 <% begin; level = level; rescue; level = 0; end %>
 <% begin; citems = citems; rescue; citems = []; end %>
 <% is_left = (defined?(at_left) ? true : false) %>
-<% if !item.children.empty? and !citems.empty? and !(citems & item.children).empty?
+<% if citems and !item.children.empty? and !citems.empty? and !(citems & item.children).empty?
      indicator="expand-indicator"
    else
      indicator = nil
