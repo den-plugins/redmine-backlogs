@@ -16,18 +16,9 @@ class ItemsController < ApplicationController
 
   def update
     @product_backlog = Backlog.find_product_backlog(@project)
-    flag = true
+    Delayed::Job.enqueue(ItemProcessJob.new(params))
     temp = Item.find params[:id]
-    begin
-      item = Item.update(params)
-    rescue ActiveRecord::StaleObjectError
-      temp.reload
-      temp.issue.reload
-      temp.parent.reload if temp.parent
-      item = Item.update(params)
-    end
-    
-    render :partial => "item", :locals => { :item => item } 
+    render :partial => "item", :locals => { :item => temp } 
   end
   
   private
