@@ -45,6 +45,13 @@ module ItemsHelper
   end
   
   def points_or_empty(item)
+    if item.issue and (item.points != item.issue.story_points)
+      if item.issue.story_points.nil?
+        item.issue.story_points = item.points ? item.points : 0.0
+      else
+        item.points = item.issue.story_points
+      end
+    end
     item.points.nil? ? 0 : item.points
   end
   

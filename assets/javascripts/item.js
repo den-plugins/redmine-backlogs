@@ -322,8 +322,7 @@ RBL.Item = Class.create(RBL.Model, {
     this.markSaving();
     new Ajax.Request(url, {method: "post", 
                            parameters: params, 
-                           onComplete: callback,
-                           onException: function(){me._rootElement.setStyle({color:"red", fontWeight:"bold"})}});
+                           onComplete: callback});
   },
   
   saveComment: function(event){
