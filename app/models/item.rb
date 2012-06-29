@@ -6,7 +6,7 @@ class Item < ActiveRecord::Base
   acts_as_tree :order => "position ASC, created_at ASC"
 
   def append_comment(user, comment)
-    journal = issue.init_journal(User.current, @notes)
+    journal = issue.init_journal(user, @notes)
   end
 
   def self.create(params, project)
@@ -21,10 +21,9 @@ class Item < ActiveRecord::Base
     issue.nil? ? "" : issue.subject
   end
   
-  def self.update(params, user)
+  def self.update(params)
+    user = User.find(params[:user_id])
     item = find(params[:id])
-    journal = item.issue.init_journal(user, @notes)
-    
     # Fix bug #42 to remove this condition
     if params[:item][:backlog_id].to_i != 0
       params[:issue][:fixed_version_id] = Backlog.find(params[:item][:backlog_id]).version.id
@@ -46,15 +45,10 @@ class Item < ActiveRecord::Base
       params[:issue].delete(:status_id)
     end
     
-    if item.points != params[:item][:points].to_i
-      journal.details << JournalDetail.new(:property => 'attr', :prop_key => 'story_points', :old_value => item.points, :value => params[:item][:points])
-    end 
-    
-    item.issue.update_attributes! params[:issue]
-    item.remove_from_list    
-    item.update_attributes! params[:item]
-    item.update_position params
-    item
+    #item.issue.update_attributes! params[:issue]
+    #item.remove_from_list    
+    #item.update_attributes! params[:item]
+    #item.update_position params
   end
 
   def self.create_issue(params, project)

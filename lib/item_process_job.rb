@@ -1,5 +1,5 @@
-class ItemProcessJob < Struct.new(:params, :user)
+class ItemProcessJob < Struct.new(:params)
   def perform
-    item = Item.update(params, user)
+    #Item.update(params)
   end
 end

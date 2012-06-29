@@ -18,7 +18,8 @@ class ItemsController < ApplicationController
     @product_backlog = Backlog.find_product_backlog(@project)
     temp = Item.find params[:id]
     temp.issue.story_points = params[:item][:points].to_f if params[:item][:points]
-    Delayed::Job.enqueue(ItemProcessJob.new(params, User.current))
+    params[:user_id] = User.current.id
+    Delayed::Job.enqueue(ItemProcessJob.new(params))
     render :partial => "item", :locals => { :item => temp } 
   end
   
