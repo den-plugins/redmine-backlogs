@@ -21,9 +21,9 @@ class Item < ActiveRecord::Base
     issue.nil? ? "" : issue.subject
   end
   
-  def self.update(params)
+  def self.update(params, user)
     item = find(params[:id])
-    journal = item.issue.init_journal(User.current, @notes)
+    journal = item.issue.init_journal(user, @notes)
     
     # Fix bug #42 to remove this condition
     if params[:item][:backlog_id].to_i != 0
@@ -35,9 +35,9 @@ class Item < ActiveRecord::Base
 
     default_status = item.issue.status
     allowed_statuses = if User.new.respond_to?(:roles_for_project)
-                         ([default_status] + default_status.find_new_statuses_allowed_to(User.current.roles_for_project(item.issue.project), item.issue.tracker)).uniq
+                         ([default_status] + default_status.find_new_statuses_allowed_to(user.roles_for_project(item.issue.project), item.issue.tracker)).uniq
                        else
-                         item.issue.new_statuses_allowed_to(User.current)
+                         item.issue.new_statuses_allowed_to(user)
                        end
     requested_status = IssueStatus.find_by_id(params[:issue][:status_id])
     
