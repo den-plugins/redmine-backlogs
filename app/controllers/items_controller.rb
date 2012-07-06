@@ -16,7 +16,7 @@ include ItemsHelper
   end
 
   def update
-    get_hash
+    get_hash(@project.id)
     @product_backlog = Backlog.find_product_backlog(@project)
     params[:user_id] = User.current.id
     temp = Item.find params[:id]
@@ -26,7 +26,7 @@ include ItemsHelper
     end
     temp.issue.story_points = params[:item][:points].to_f if params[:item][:points]
     handler = Delayed::Job.enqueue(ItemProcessJob.new(params), 1)
-    set_hash(@hash << handler.id)
+    set_hash(@hash << handler.id, @project.id)
     render :partial => "item", :locals => { :item => temp } 
   end
   

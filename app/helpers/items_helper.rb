@@ -93,14 +93,14 @@ module ItemsHelper
     item.new_record? ? "" : item.issue.tracker.name
   end
   
-  def get_hash
-    @hash = $redis.get "backlogs_#{User.current.id}"
+  def get_hash(project_id)
+    @hash = $redis.get "backlogs_#{project_id}"
     @hash ? @hash = JSON(@hash) : @hash = []
     @hash.reject!{|x| !Delayed::Job.all.map(&:id).include? x}
   end
   
-  def set_hash(array)
+  def set_hash(array, project_id)
     array.reject!{|x| !Delayed::Job.all.map(&:id).include? x}
-    $redis.set "backlogs_#{User.current.id}", JSON(array)
+    $redis.set "backlogs_#{project_id}", JSON(array)
   end
 end

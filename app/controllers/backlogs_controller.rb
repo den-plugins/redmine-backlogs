@@ -6,7 +6,7 @@ class BacklogsController < ApplicationController
   before_filter :find_project, :authorize
   
   def index
-    get_hash
+    get_hash(@project.id)
     @all_items = Item.find_by_project(@project)
     @item_template = Item.new
     @backlogs = Backlog.find_by_project(@project, (params[:show_accepted_backlogs] ? nil : 3))
