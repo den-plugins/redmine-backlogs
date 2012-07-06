@@ -25,5 +25,12 @@ module BacklogsHelper
   def product_backlog_id
     @product_backlog ? @product_backlog.id : nil
   end
-
+  
+  def enqueue_message(hash)
+    if hash.count == 1
+      content_tag("div", "There is 1 job enqueued.", {"id"=>"job_message","class"=>"flash notice"})
+    elsif hash.count > 1
+      content_tag("div", "There are #{hash.count} jobs enqueued.", {"id"=>"job_message","class"=>"flash notice"})
+    end
+  end
 end
