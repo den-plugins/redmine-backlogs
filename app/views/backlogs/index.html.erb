@@ -30,7 +30,9 @@
     <% end %>
   </div>
 </div>
-
+<% if @hash.count > 0 %>
+  <div id="success_message" class="flash notice">There are <%= @hash.count %> jobs enqueued.</div> 
+<% end %>
 <div class="bl_selections">
   <div class="bl_select_l">
     <%= select_tag "sbacklog_l", ["<option value=''>Product Backlogs</option>"] << options_from_collection_for_select((@backlogs - [@backlog_r]), "id", "name", params[:backlog_l].to_i),

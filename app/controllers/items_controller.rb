@@ -1,4 +1,5 @@
 class ItemsController < ApplicationController
+include ItemsHelper
   unloadable
   before_filter :find_item, :only => [:edit, :update, :show, :delete]
   before_filter :find_project, :authorize
@@ -15,15 +16,17 @@ class ItemsController < ApplicationController
   end
 
   def update
+    get_hash
     @product_backlog = Backlog.find_product_backlog(@project)
     params[:user_id] = User.current.id
     temp = Item.find params[:id]
-    if params[:issue][:status_id] 
+    if params[:issue][:status_id] and params[:issue][:status_id] != temp.issue.status_id.to_s
       params[:issue][:old_status] = temp.issue.status_id
       temp.issue.update_status(params[:issue][:status_id])
     end
     temp.issue.story_points = params[:item][:points].to_f if params[:item][:points]
-    Delayed::Job.enqueue(ItemProcessJob.new(params))
+    handler = Delayed::Job.enqueue(ItemProcessJob.new(params), 1)
+    set_hash(@hash << handler.id)
     render :partial => "item", :locals => { :item => temp } 
   end
   

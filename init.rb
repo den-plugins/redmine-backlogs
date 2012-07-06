@@ -1,4 +1,5 @@
 require 'redmine'
+$redis = Redis.new
 
 # Patches to the Redmine core
 require 'issue_patch'

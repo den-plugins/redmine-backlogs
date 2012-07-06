@@ -4,8 +4,9 @@ class BacklogsController < ApplicationController
   unloadable
   before_filter :find_backlog, :only => [:show, :update]
   before_filter :find_project, :authorize
-      
+  
   def index
+    get_hash
     @all_items = Item.find_by_project(@project)
     @item_template = Item.new
     @backlogs = Backlog.find_by_project(@project, (params[:show_accepted_backlogs] ? nil : 3))
@@ -37,6 +38,7 @@ class BacklogsController < ApplicationController
     @backlog = (params[:id]=='0' || params[:id].nil?) ? nil : Backlog.find(params[:id])
   end
   
+
   def list_backlog_items
     @items = {}
     @backlogs.each do |backlog|
