@@ -46,7 +46,15 @@ class Item < ActiveRecord::Base
     unless allowed_statuses.include? requested_status
       params[:issue].delete(:status_id)
     end
+
+    if item.points != item.issue.story_points.to_i
+      journal.details << JournalDetail.new(:property => 'attr', :prop_key => 'story_points', :old_value => item.points, :value => params[:item][:points])
+    end
     
+    if params[:issue][:old_status]
+      journal.details << JournalDetail.new(:property => 'attr', :prop_key => 'status_id', :old_value => params[:issue][:old_status], :value => item.issue.status_id.to_s)
+    end
+
     item.issue.update_attributes! params[:issue]
     item.remove_from_list    
     item.update_attributes! params[:item]
