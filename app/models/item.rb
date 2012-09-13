@@ -23,7 +23,7 @@ class Item < ActiveRecord::Base
   
   def self.update(params)
     user = User.find(params[:user_id])
-    item = find(params[:id])
+    item = find_by_id(params[:id])
     journal = item.issue.init_journal(user, @notes)
     
     # Fix bug #42 to remove this condition
