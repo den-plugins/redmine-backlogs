@@ -23,564 +23,581 @@ THE SOFTWARE.
 */
 
 #ajax-indicator {
-  display: none;
+    display: none;
 }
 
 #assigned_to_id_options,
 #is_closed_options {
-  display: none;
+    display: none;
 }
 
 #item_template {
-  display: none;
+    display: none;
 }
 
 #new_item_button {
-  font-size:11px;
-  position:absolute;
-  right:3px;
-  top:3px;
+    font-size: 11px;
+    position: absolute;
+    right: 3px;
+    top: 3px;
 }
 
 #status_id_options {
-  display: none;
+    display: none;
 }
 
 #spinner_preload {
-  background-image: url(../images/spinner.gif);
-  display: block;
-  height: 16px;
-  left: -100px;
-  position: absolute;
-  top: 1px;
-  width: 16px;
-  z-index: 1000;
+    background-image: url(../images/spinner.gif);
+    display: block;
+    height: 16px;
+    left: -100px;
+    position: absolute;
+    top: 1px;
+    width: 16px;
+    z-index: 1000;
 }
 
 #task_template {
-  display: none;
+    display: none;
 }
 
-
 #users {
-  display: none;
+    display: none;
 }
 
 .backlog_toolbar {
-  background-color: #666;
-  color: #ccc;
-  font-family: Verdana, Arial, sans-serif;  
-  font-size: 10px;
-  height: 24px;
-  margin: 3px 0px 10px 0px;
-  position: relative;
-  width: 100%;
+    background-color: #666;
+    color: #ccc;
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 10px;
+    height: 24px;
+    margin: 3px 0px 10px 0px;
+    position: relative;
+    width: 100%;
 }
 
 #select_backlog {
-  display: inline-block;
-  float: left;
+    display: inline-block;
+    float: left;
 }
 
 #show_accepted_backlogs_container {
-  display: inline-block;
-  float: left;
-  padding: 4px;
+    display: inline-block;
+    float: left;
+    padding: 4px;
+}
+
+#show_bugs_container {
+    display: inline-block;
+    float: left;
+    padding: 4px;
 }
 
 #move_items {
-  display: inline-block;
-  float: left;
+    display: inline-block;
+    float: left;
 }
 
 #backlog_body {
-  position: relative;
-  padding-left: 20px;
-  float: left;
-/*  width: 1130px;*/
-/*  border: 1px solid #333;*/
-/*  overflow: visible;*/
+    position: relative;
+    padding-left: 20px;
+    float: left;
+    /*  width: 1130px;*/
+    /*  border: 1px solid #333;*/
+    /*  overflow: visible;*/
 }
 
 .backlog_toolbar select {
-  float: left;
-  margin: 3px;
+    float: left;
+    margin: 3px;
 }
 
 .b-icon {
-  background-position: 0% 40%;
-  background-repeat: no-repeat;
-  background-color: white;
-  margin-right: 6px;
-  margin-bottom: 0;
-  padding: 2px 5px 2px 20px;
-  -moz-border-radius: 2px 2px 0 0;
-  -webkit-border-radius: 2px 2px 0 0;
+    background-position: 0% 40%;
+    background-repeat: no-repeat;
+    background-color: white;
+    margin-right: 6px;
+    margin-bottom: 0;
+    padding: 2px 5px 2px 20px;
+    -moz-border-radius: 2px 2px 0 0;
+    -webkit-border-radius: 2px 2px 0 0;
 }
 
 /***************************************
   BACKLOG STYLES
 ***************************************/
 .backlog {
-  width: 720px;
+    width: 720px;
 }
 
 .backlog.main {
-  float: left;
-  height: 100%;
-  margin: 0px;
-  width: 465px;
+    float: left;
+    height: 100%;
+    margin: 0px;
+    width: 465px;
 }
 
 .backlog > ul {
-  border: 0px;
-  display: block;
-  list-style: none;
-  margin: 0px 0px 10px 0px;
-  min-height: 25px;
-  padding: 0px;
-  position: relative;
-  width: 100%;
+    border: 0px;
+    display: block;
+    list-style: none;
+    margin: 0px 0px 10px 0px;
+    min-height: 25px;
+    padding: 0px;
+    position: relative;
+    width: 100%;
 }
 
 .backlog > ul:empty {
-  background-color: #efefef;
+    background-color: #efefef;
 }
-
 
 .backlog .header {
-  background-color: #999;
-  font-family: Verdana, Arial, sans-serif;  
-  height: 25px;
-  position: relative;
-  width: 100%;
-  -moz-border-radius-topleft: 5px;
-  -webkit-border-radius-topleft: 5px;
-  -moz-border-radius-topright: 5px;
-  -webkit-border-radius-topright: 5px;
+    background-color: #999;
+    font-family: Verdana, Arial, sans-serif;
+    height: 25px;
+    position: relative;
+    width: 100%;
+    -moz-border-radius-topleft: 5px;
+    -webkit-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+    -webkit-border-radius-topright: 5px;
 }
 
-.backlog.main.left .header {height: 25px;}
+.backlog.main.left .header {
+    height: 25px;
+}
 
 .backlog.maximized .header {
-  height: 71px;
+    height: 71px;
 }
 
-.backlog.main.left.maximized .header {height: 86px;}
+.backlog.main.left.maximized .header {
+    height: 86px;
+}
 
 .backlog .header .id {
-  display: none;
+    display: none;
 }
 
 .backlog .header > .editable:hover,
 .backlog .header > .editable .t:hover,
 .backlog .header > div .editable:hover {
-  background-color: #efefef ! important;
-  cursor: text;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
+    background-color: #efefef ! important;
+    cursor: text;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
 }
 
 /**** SPINNER ****/
 
 .backlog .header > .spinner {
-  display: none;
+    display: none;
 }
 
 .backlog .header.saving > .spinner {
-  background-image: url(../images/spinner.gif);
-  display: block;
-  height: 16px;
-  left: 3px;
-  position: absolute;
-  top: 5px;
-  width: 16px;
+    background-image: url(../images/spinner.gif);
+    display: block;
+    height: 16px;
+    left: 3px;
+    position: absolute;
+    top: 5px;
+    width: 16px;
 }
 
 /**** CONTROLS ****/
 .backlog .header .controls {
-  display: none;
+    display: none;
 }
 
 .backlog .header:hover .controls {
-  background-color: #999;
-  display: block;
-  font-size: 11px;
-  height: 22px;
-  left: 20px;
-  position: absolute;
-  text-align: center;
-  top: -22px;
-  width: 113px;
-  -moz-border-radius-topleft: 5px;
-  -webkit-border-radius-topleft: 5px;
-  -moz-border-radius-topright: 5px;
-  -webkit-border-radius-topright: 5px;
+    background-color: #999;
+    display: block;
+    font-size: 11px;
+    height: 22px;
+    left: 20px;
+    position: absolute;
+    text-align: center;
+    top: -22px;
+    width: 113px;
+    -moz-border-radius-topleft: 5px;
+    -webkit-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+    -webkit-border-radius-topright: 5px;
 }
 
 .backlog .header:hover .controls * {
-  background-color: #ccc;
-  border: solid 1px #777;
-  border-top-color: #eaeaea;
-  border-left-color: #eaeaea;
-  cursor: pointer;
-  display: block;
-  font-size: 11px;
-  height: 15px;
-  padding: 1px 0px 1px 0px;
-  position: absolute;
-  top: 3px;
-  width: 50px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
+    background-color: #ccc;
+    border: solid 1px #777;
+    border-top-color: #eaeaea;
+    border-left-color: #eaeaea;
+    cursor: pointer;
+    display: block;
+    font-size: 11px;
+    height: 15px;
+    padding: 1px 0px 1px 0px;
+    position: absolute;
+    top: 3px;
+    width: 50px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
 }
 
 .backlog .header:hover .controls .more {
-  left: 3px;
+    left: 3px;
 }
 
 .backlog .header:hover .controls .chart {
-  left: 58px;
+    left: 58px;
 }
 
 .backlog.maximized .header:hover .controls .more,
 .backlog.show_chart .header:hover .controls .chart {
-  background: #aaa;
-  border: solid 1px #eaeaea;
-  border-top-color: #777;
-  border-left-color: #777;
-  padding: 2px 0px 1px 1px;
+    background: #aaa;
+    border: solid 1px #eaeaea;
+    border-top-color: #777;
+    border-left-color: #777;
+    padding: 2px 0px 1px 1px;
 }
 
 .backlog .header:hover .controls *:hover {
-  background-color: #fff;
+    background-color: #fff;
 }
 
 /**** NAME ****/
 
 .backlog .header div.name {
-  display: block;
-  font-family: Verdana, Arial, sans-serif;
-  font-size: 12px;
-  font-weight: bold;
-  left: 21px;
-  overflow: hidden;
-  padding: 2px 1px 2px 4px;
-  position: absolute;
-  top: 3px;
-  width: 250px;
+    display: block;
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    left: 21px;
+    overflow: hidden;
+    padding: 2px 1px 2px 4px;
+    position: absolute;
+    top: 3px;
+    width: 250px;
 }
 
 .backlog .header.editing .name {
-  display: none;
+    display: none;
 }
 
 .backlog .header .name.editor {
-  display: none;
+    display: none;
 }
 
 .backlog .header.editing .name.editor {
-  display: block;
-  font-family: Verdana, Arial, sans-serif;
-  font-size: 12px;
-  font-weight: bold;
-  height: 15px;
-  left: 21px;
-  position: absolute;
-  top: 0px;
-  width: 250px;
+    display: block;
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    height: 15px;
+    left: 21px;
+    position: absolute;
+    top: 0px;
+    width: 250px;
 }
 
 /**** VELOCITY ****/
 
 .backlog .header .velocity {
-  font-family: Verdana, Arial, sans-serif;
-  font-size: 10px;  
-  font-weight: normal;
-  left: 310px;
-  position: absolute;
-  top: 3px;
-  width: 30px;
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 10px;
+    font-weight: normal;
+    left: 310px;
+    position: absolute;
+    top: 3px;
+    width: 30px;
 }
 
 .backlog .header .velocity_label {
-  display: block;
-  font-family: Verdana, Arial, sans-serif;
-  font-size: 10px;  
-  font-weight: normal;
-  left: 290px;
-  position: absolute;
-  top: 5px;
+    display: block;
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 10px;
+    font-weight: normal;
+    left: 290px;
+    position: absolute;
+    top: 5px;
 }
 
-
 .backlog .header div.velocity {
-  display: block;
-  overflow: hidden;
-  padding: 2px 1px 2px 4px;
+    display: block;
+    overflow: hidden;
+    padding: 2px 1px 2px 4px;
 }
 
 .backlog .header.editing .velocity {
-  display: none;
+    display: none;
 }
 
 .backlog .header .velocity.editor {
-  display: none;
+    display: none;
 }
 
 .backlog .header.editing .velocity.editor {
-  display: block;
-  height: 15px;
-  top: 0px;
+    display: block;
+    height: 15px;
+    top: 0px;
 }
-
 
 /**** START DATE ****/
 
 .backlog .header .start_date_container {
-  display: block;
-  height: 25px;
-  left: 350px;
-  position: absolute;
-  top: 0px;
-  width: 120px;
+    display: block;
+    height: 25px;
+    left: 350px;
+    position: absolute;
+    top: 0px;
+    width: 120px;
 }
 
-.backlog.main.left .header .start_date_container {top: 25px; left: 21px;}
+.backlog.main.left .header .start_date_container {
+    top: 25px;
+    left: 21px;
+}
 
 .start_date_container .label {
-  display: block;
-  font-family: Verdana, Arial, sans-serif;
-  font-size: 10px;  
-  font-weight: normal;
-  left: 5px;
-  position: absolute;
-  top: 5px;
+    display: block;
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 10px;
+    font-weight: normal;
+    left: 5px;
+    position: absolute;
+    top: 5px;
 }
 
 .backlog .header .start_date_container img.calendar-trigger {
-  display: none;
+    display: none;
 }
 
 .backlog .header .start_date_container:hover img.calendar-trigger,
 .backlog .header.editing .start_date_container img.calendar-trigger {
-  display: block;
-  position: absolute;
-  right: 1px;
-  top: 4px;
+    display: block;
+    position: absolute;
+    right: 1px;
+    top: 4px;
 }
 
 .backlog .header .start_date {
-  font-family: Verdana, Arial, sans-serif;
-  font-size: 10px;  
-  font-weight: normal;
-  right: 18px;
-  position: absolute;
-  top: 3px;
-  width: 60px;
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 10px;
+    font-weight: normal;
+    right: 18px;
+    position: absolute;
+    top: 3px;
+    width: 60px;
 }
 
 .backlog .header div.start_date {
-  display: block;
-  overflow: hidden;
-  padding: 2px 2px 2px 4px;
+    display: block;
+    overflow: hidden;
+    padding: 2px 2px 2px 4px;
 }
 
 .backlog .header.editing .start_date {
-  display: none;
+    display: none;
 }
 
 .backlog .header .start_date.editor {
-  display: none;
+    display: none;
 }
 
 .backlog .header.editing .start_date.editor {
-  display: block;
-  height: 15px;
-  top: 0px;
+    display: block;
+    height: 15px;
+    top: 0px;
 }
-
 
 /**** EFFECTIVE DATE ****/
 
 .backlog .header .effective_date_container {
-  display: block;
-  height: 25px;
-  left: 471px;
-  position: absolute;
-  top: 0px;
-  width: 120px;
+    display: block;
+    height: 25px;
+    left: 471px;
+    position: absolute;
+    top: 0px;
+    width: 120px;
 }
 
-.backlog.main.left .header .effective_date_container {top: 25px; left: 142px;}
+.backlog.main.left .header .effective_date_container {
+    top: 25px;
+    left: 142px;
+}
 
 .effective_date_container .label {
-  display: block;
-  font-family: Verdana, Arial, sans-serif;
-  font-size: 10px;  
-  font-weight: normal;
-  left: 10px;
-  position: absolute;
-  top: 5px;
+    display: block;
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 10px;
+    font-weight: normal;
+    left: 10px;
+    position: absolute;
+    top: 5px;
 }
 
 .backlog .header .effective_date_container img.calendar-trigger {
-  display: none;
+    display: none;
 }
 
 .backlog .header .effective_date_container:hover img.calendar-trigger,
 .backlog .header.editing .effective_date_container img.calendar-trigger {
-  display: block;
-  position: absolute;
-  right: 1px;
-  top: 4px;
+    display: block;
+    position: absolute;
+    right: 1px;
+    top: 4px;
 }
 
 .backlog .header .effective_date {
-  font-family: Verdana, Arial, sans-serif;
-  font-size: 10px;  
-  font-weight: normal;
-  right: 18px;
-  position: absolute;
-  top: 3px;
-  width: 60px;
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 10px;
+    font-weight: normal;
+    right: 18px;
+    position: absolute;
+    top: 3px;
+    width: 60px;
 }
 
 .backlog .header div.effective_date {
-  display: block;
-  overflow: hidden;
-  padding: 2px 2px 2px 4px;
+    display: block;
+    overflow: hidden;
+    padding: 2px 2px 2px 4px;
 }
 
 .backlog .header.editing .effective_date {
-  display: none;
+    display: none;
 }
 
 .backlog .header .effective_date.editor {
-  display: none;
+    display: none;
 }
 
 .backlog .header.editing .effective_date.editor {
-  display: block;
-  height: 15px;
-  top: 0px;
+    display: block;
+    height: 15px;
+    top: 0px;
 }
-
 
 /**** ETA ****/
 
 .backlog .header .eta {
-  background-color: #ccc;
-  display: block;
-  font-family: Verdana, Arial, sans-serif;
-  font-size: 10px;  
-  font-weight: normal;
-  height: 15px;
-  padding: 4px 3px 2px 3px;
-  position: absolute;
-  right: 2px;
-  text-align: center;
-  top: 2px;
-  width: 95px;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
+    background-color: #ccc;
+    display: block;
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 10px;
+    font-weight: normal;
+    height: 15px;
+    padding: 4px 3px 2px 3px;
+    position: absolute;
+    right: 2px;
+    text-align: center;
+    top: 2px;
+    width: 95px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
 }
 
-
 .backlog.will_be_late .header .eta {
-  background-color: #f00;
-  color: #fff;
+    background-color: #f00;
+    color: #fff;
 }
 
 /**** DESCRIPTION ****/
 
 .backlog .header .description {
-  display: none;
+    display: none;
 }
 
 .backlog.maximized .header .description {
-  font-family: Verdana, Arial, sans-serif;
-  font-size: 10px;  
-  font-weight: normal;
-  height: 25px;
-  left: 21px;
-  overflow: auto;
-  position: absolute;
-  top: 25px;
-  width: 603px;
-  resize: none;
-  margin-top: 7px;
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 10px;
+    font-weight: normal;
+    height: 25px;
+    left: 21px;
+    overflow: auto;
+    position: absolute;
+    top: 25px;
+    width: 603px;
+    resize: none;
+    margin-top: 7px;
 }
 
-.backlog.main.left.maximized .header .description {top: 43px; width: 335px;}
+.backlog.main.left.maximized .header .description {
+    top: 43px;
+    width: 335px;
+}
 
 .backlog.maximized .header div.description {
-  display: block;
-  padding: 2px 2px 1px 2px;
+    display: block;
+    padding: 2px 2px 1px 2px;
 }
 
 .backlog .header.editing div.description {
-  display: none;
+    display: none;
 }
 
 .backlog .header textarea.description {
-  display: none;
+    display: none;
 }
 
 .backlog.maximized .header.editing textarea.description {
-  display: block;
+    display: block;
 }
-
 
 /**** STATUS ****/
 .backlog .header .is_closed .v {
-  display: none;
+    display: none;
 }
 
 .backlog .header .is_closed .t {
-  display: none;
+    display: none;
 }
 
 .backlog.maximized .header .is_closed .t {
-  display: block;
+    display: block;
 }
 
 .backlog .header div.is_closed {
-  display: block;
-  font-family: Verdana, Arial, sans-serif;
-  font-size: 10px;  
-  font-weight: normal;
-  height: 15px;
-  left: 638px;
-  overflow: hidden;
-  padding: 2px 2px 2px 9px;
-  position: absolute;
-  width: 68px;
-  top: 33px;
+    display: block;
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 10px;
+    font-weight: normal;
+    height: 15px;
+    left: 638px;
+    overflow: hidden;
+    padding: 2px 2px 2px 9px;
+    position: absolute;
+    width: 68px;
+    top: 33px;
 }
 
-.backlog.main.left .header div.is_closed {top: 51px; left: 368px;}
+.backlog.main.left .header div.is_closed {
+    top: 51px;
+    left: 368px;
+}
 
 .backlog .header select.is_closed * {
-  display: block;
+    display: block;
 }
 
 .backlog .header.editing  div.is_closed,
 .backlog .header  select.is_closed {
-  display: none;
+    display: none;
 }
 
 .backlog.maximized .header.editing  select.is_closed {
-  display: block;
-  font-family: Verdana, Arial, sans-serif;
-  font-size: 10px;
-  left: 638px;
-  position: absolute;
-  top: 32px;
-  width: 78px;
+    display: block;
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 10px;
+    left: 638px;
+    position: absolute;
+    top: 32px;
+    width: 78px;
 }
 
-.backlog.main.left.maximized .header.editing  select.is_closed {top: 49px; left: 368px;}
+.backlog.main.left.maximized .header.editing  select.is_closed {
+    top: 49px;
+    left: 368px;
+}
 
 /*
 .backlog.main li.item  > .body .status_id {
@@ -591,55 +608,87 @@ THE SOFTWARE.
   display: none;
 }*/
 
-
-
-
 /**** CHART ****/
 .backlog .chart_area {
-  display: none;
+    display: none;
 }
 
 .backlog.show_chart .chart_area {
-  background-color: #999;
-  display: block;
-  height: 330px;
-  text-align: center;
-  width: 720px;
-  overflow: auto;
+    background-color: #999;
+    display: block;
+    height: 330px;
+    text-align: center;
+    width: 720px;
+    overflow: auto;
 }
 
-.backlog.main.left.show_chart .chart_area {width: 450px;}
-.backlog.main.left.show_chart.maximized .chart_area {height: 270px;}
+.backlog.main.left.show_chart .chart_area {
+    width: 450px;
+}
+
+.backlog.main.left.show_chart.maximized .chart_area {
+    height: 270px;
+}
 
 .backlog.show_chart .chart_area span {
-  background-color: #fff;
-  display: block;
-  max-height: 315px;
-  margin-left: 20px;
-  padding: 5px;
-  max-width: 688px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  height: 315px;
-  width: 688px;
+    background-color: #fff;
+    display: block;
+    max-height: 315px;
+    margin-left: 20px;
+    padding: 5px;
+    max-width: 688px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    height: 315px;
+    width: 688px;
 }
 
-.backlog.main.left.show_chart .chart_area span {width: 418px;height: 290px;margin-top: 25px;max-height: 290px;max-width: 418px;}
-.backlog.main.left.show_chart.maximized .chart_area span {height: 255px; margin-top: 0;}
+.backlog.main.left.show_chart .chart_area span {
+    width: 418px;
+    height: 290px;
+    margin-top: 25px;
+    max-height: 290px;
+    max-width: 418px;
+}
+
+.backlog.main.left.show_chart.maximized .chart_area span {
+    height: 255px;
+    margin-top: 0;
+}
 
 .backlog.show_chart .chart_area img {
-  height: 280px;
-  width: 630px;
+    height: 280px;
+    width: 630px;
 }
 
-.backlog.main.left.show_chart .chart_area img { height: 237px; width: 400px;}
+.backlog.main.left.show_chart .chart_area img {
+    height: 237px;
+    width: 400px;
+}
 
 .backlog.show_chart .chart_area a {
-  font-family: Verdana, Arial, sans-serif;  
-  font-size: 10px;
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 10px;
 }
 
-.bl_scroll { width: 735px; height: 500px !important; overflow-x: auto; overflow-y: auto; }
-.bl_selections { height: 30px; }
-.bl_select_l { width: 465px; float: left; }
-.bl_select_r { width: 735px; float: left; padding-left: 17px; }
+.bl_scroll {
+    width: 735px;
+    height: 500px !important;
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
+.bl_selections {
+    height: 30px;
+}
+
+.bl_select_l {
+    width: 465px;
+    float: left;
+}
+
+.bl_select_r {
+    width: 735px;
+    float: left;
+    padding-left: 17px;
+}

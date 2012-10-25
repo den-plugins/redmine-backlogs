@@ -1,92 +1,101 @@
 <% content_for :header_tags do %>
     <%= stylesheet_link_tag 'index', 'item', :plugin => 'redmine_backlogs', :media => 'screen, print' %>
-    <%= javascript_include_tag  'main', 'backlog', 'item', 'task', :plugin => 'redmine_backlogs' %>
+    <%= javascript_include_tag 'main', 'backlog', 'item', 'task', :plugin => 'redmine_backlogs' %>
     <%= javascript_include_tag "jquery-1.7.1.min.js", :plugin => 'redmine_backlogs' %>
     <%= javascript_include_tag 'custom_backlog', :plugin => 'redmine_backlogs' %>
 <% end %>
 <div class="backlog_toolbar">
   <p class="contextual">
-    <%= link_to l(:label_feature_new), { :controller => 'custom_issues' , :action => 'new', :project_id => @project, :tracker_id => 2, :back_to => @back }, :class => 'b-icon icon-add' %>
+    <%= link_to l(:label_feature_new), {:controller => 'custom_issues', :action => 'new', :project_id => @project, :tracker_id => 2, :back_to => @back}, :class => 'b-icon icon-add' %>
   </p>
   <a class="expand-collapse-all expand">Expand/Collapse All</a>
   <select id="move_items" class="actions">
     <option>Move selected items to...</option>
     <% backlogs = @backlog ? [@backlog] : @backlogs %>
     <%- backlogs.each do |backlog| %>
-      <%- if backlog.version.state or @backlog %>
-        <option value="<%= backlog.id %>">&nbsp;&nbsp;&nbsp;&nbsp;<%= backlog.version.name %></option>
-      <% end %>
+        <%- if backlog.version.state or @backlog %>
+            <option value="<%= backlog.id %>">&nbsp;&nbsp;&nbsp;&nbsp;<%= backlog.version.name %></option>
+        <% end %>
     <%- end %>
     <option value="0">&nbsp;&nbsp;&nbsp;&nbsp;Product Backlogs</option>
   </select>
-  <% form_tag url_for(:controller => "backlogs", :action => "index", 
-                 :project_id => @project, :show_accepted_backlogs => @show_accepted_backlogs), :id => "select_backlog" do %>
-     <%= hidden_field_tag 'backlog_l', '' %>
-     <%= hidden_field_tag 'backlog_r', '' %>
+  <% form_tag url_for(:controller => "backlogs", :action => "index",
+                      :project_id => @project, :show_accepted_backlogs => @show_accepted_backlogs), :id => "select_backlog" do %>
+      <%= hidden_field_tag 'backlog_l', '' %>
+      <%= hidden_field_tag 'backlog_r', '' %>
   <% end %>
   <div id="show_accepted_backlogs_container">
     <% form_for :backlogs, @backlogs, :url => {:controller => "backlogs", :action => "index", :project_id => @project} do |f| %>
-      <%= check_box_tag "show_accepted_backlogs", nil, @show_accepted_backlogs, :onchange => "this.form.submit();" %> Show accepted backlogs
+        <%= check_box_tag "show_accepted_backlogs", nil, @show_accepted_backlogs, :onchange => "this.form.submit();" %>
+        Show accepted backlogs
     <% end %>
   </div>
+
+  <div id="show_bugs_container">
+    <% form_for :backlogs, @backlogs, :url => {:controller => "backlogs", :action => "index", :project_id => @project} do |f| %>
+        <%= check_box_tag "show_bugs", nil, @show_bugs, :onchange => "this.form.submit();" %>
+        Show bugs
+    <% end %>
+  </div>
+
 </div>
 <%= enqueue_message(@hash) %>
 <div class="bl_selections">
   <div class="bl_select_l">
     <%= select_tag "sbacklog_l", ["<option value=''>Product Backlogs</option>"] << options_from_collection_for_select((@backlogs - [@backlog_r]), "id", "name", params[:backlog_l].to_i),
-                        :onchange => "setSelectedBacklogs(); $('select_backlog').submit();",
-                        :style => "margin: 0 0 5px 0;" %>
+                   :onchange => "setSelectedBacklogs(); $('select_backlog').submit();",
+                   :style => "margin: 0 0 5px 0;" %>
   </div>
   <div class="bl_select_r">
     <%= select_tag "sbacklog_r", ["<option value=''>Select an Iteration to show</option>"] << options_from_collection_for_select((@backlogs - [@backlog_l]), "id", "name"),
-                        :onchange => "setSelectedBacklogs(); $('select_backlog').submit();",
-                        :style => "margin: 0 0 5px 0;" %>
+                   :onchange => "setSelectedBacklogs(); $('select_backlog').submit();",
+                   :style => "margin: 0 0 5px 0;" %>
   </div>
 </div>
 
 <div class="backlog main<%= ' left' unless @backlog_l.blank? %> bl_scroll">
   <% if @backlog_l.blank? %>
-    <%= render :partial => "header", :locals => { :backlog => nil } %>
-    <% if @items && @items[:backlog] %>
-    <ul>
-      <% @items[:backlog][:pitems].each do |item| %>
-        <%= render :partial => "items/item", :locals => {:item => item, :citems => @items[:backlog][:citems]} %>
+      <%= render :partial => "header", :locals => {:backlog => nil} %>
+      <% if @items && @items[:backlog] %>
+          <ul>
+            <% @items[:backlog][:pitems].each do |item| %>
+                <%= render :partial => "items/item", :locals => {:item => item, :citems => @items[:backlog][:citems]} %>
+            <% end %>
+          </ul>
       <% end %>
-    </ul>
-    <% end %>
   <% else %>
-    <%= render :partial => "header", :locals => { :backlog => @backlog_l } %>
-    <ul>
-      <% @items[@backlog_l.id][:pitems].each do |item| %>
-        <%= render :partial => "items/item", :locals => {:item => item, :citems => @items[@backlog_l.id][:citems], :at_left => true} %>
-      <% end %>
-    </ul>
+      <%= render :partial => "header", :locals => {:backlog => @backlog_l} %>
+      <ul>
+        <% @items[@backlog_l.id][:pitems].each do |item| %>
+            <%= render :partial => "items/item", :locals => {:item => item, :citems => @items[@backlog_l.id][:citems], :at_left => true} %>
+        <% end %>
+      </ul>
   <% end %>
 </div>
 
 <div id="backlog_body" class="bl_scroll">
-  <% unless @backlog_r  %>
-    <%- (@backlogs - [@backlog_l]).each do |backlog| %>
-      <%- if backlog.version.state %>
-      <div class="backlog <%= backlog.is_closed? ? "closed" : "" %>">
-        <%= render :partial => "header", :locals => { :backlog => backlog } %>
+  <% unless @backlog_r %>
+      <%- (@backlogs - [@backlog_l]).each do |backlog| %>
+          <%- if backlog.version.state %>
+              <div class="backlog <%= backlog.is_closed? ? "closed" : "" %>">
+                <%= render :partial => "header", :locals => {:backlog => backlog} %>
+                <ul>
+                  <% @items[backlog.id][:pitems].each do |item| %>
+                      <%= render :partial => "items/item", :locals => {:item => item, :citems => @items[backlog.id][:citems]} %>
+                  <% end %>
+                </ul>
+              </div>
+          <%- end %>
+      <%- end %>
+  <% else %>
+      <div class="backlog <%= @backlog_r.is_closed? ? "closed" : "" %>">
+        <%= render :partial => "header", :locals => {:backlog => @backlog_r} %>
         <ul>
-          <% @items[backlog.id][:pitems].each do |item| %>
-            <%= render :partial => "items/item", :locals => {:item => item, :citems => @items[backlog.id][:citems]} %>
+          <% @items[@backlog_r.id][:pitems].each do |item| %>
+              <%= render :partial => "items/item", :locals => {:item => item, :citems => @items[@backlog_r.id][:citems]} %>
           <% end %>
         </ul>
       </div>
-      <%- end %>
-    <%- end %>
-  <% else %>
-    <div class="backlog <%= @backlog_r.is_closed? ? "closed" : "" %>">
-      <%= render :partial => "header", :locals => { :backlog => @backlog_r } %>
-      <ul>
-        <% @items[@backlog_r.id][:pitems].each do |item| %>
-          <%= render :partial => "items/item", :locals => {:item => item, :citems => @items[@backlog_r.id][:citems]} %>
-        <% end %>
-        </ul>
-    </div>
   <% end %>
 </div>
 
@@ -96,14 +105,14 @@
 
 <select class="status_id" id="status_id_options">
   <%- IssueStatus.find(:all, :order => "position ASC").each do |status| %>
-  <option value="<%= status.id %>" class="<%= (status.is_closed? ? "closed" : "") %>"><%= status.name %></option>
+      <option value="<%= status.id %>" class="<%= (status.is_closed? ? "closed" : "") %>"><%= status.name %></option>
   <%- end %>
 </select>
 
 <select class="assigned_to_id" id="assigned_to_id_options">
-  <option value=""> </option>
+  <option value=""></option>
   <%- @project.users.each do |member| %>
-  <option value="<%= member.id %>"><%= "#{member.firstname} #{member.lastname}" %></option>
+      <option value="<%= member.id %>"><%= "#{member.firstname} #{member.lastname}" %></option>
   <%- end %>
 </select>
 
@@ -112,14 +121,14 @@
   <option value="true">Closed</option>
 </select>
 
-<%= select_tag :tracker_id_options, options_for_select( @project.trackers.collect {|t| [t.name, t.id]} ), :class => "tracker_id" %>
+<%= select_tag :tracker_id_options, options_for_select(@project.trackers.collect { |t| [t.name, t.id] }), :class => "tracker_id" %>
 
-<div id="spinner_preload"> </div>
+<div id="spinner_preload"></div>
 
 <script>
-  var projectID = '<%= @project.identifier %>';
-  function setSelectedBacklogs(){
-    $('backlog_l').value = $("sbacklog_l").getValue();
-    $('backlog_r').value = $("sbacklog_r").getValue();
-  }
+    var projectID = '<%= @project.identifier %>';
+    function setSelectedBacklogs() {
+        $('backlog_l').value = $("sbacklog_l").getValue();
+        $('backlog_r').value = $("sbacklog_r").getValue();
+    }
 </script>
