@@ -40,6 +40,8 @@
 
 </div>
 <%= enqueue_message(@hash) %>
+
+<div class="clear"></div>
 <div class="bl_selections">
   <div class="bl_select_l">
     <%= select_tag "sbacklog_l", ["<option value=''>Product Backlogs</option>"] << options_from_collection_for_select((@backlogs - [@backlog_r]), "id", "name", params[:backlog_l].to_i),
@@ -52,7 +54,7 @@
                    :style => "margin: 0 0 5px 0;" %>
   </div>
 </div>
-
+<div class="clear"></div>
 <div class="backlog main<%= ' left' unless @backlog_l.blank? %> bl_scroll">
   <% if @backlog_l.blank? %>
       <%= render :partial => "header", :locals => {:backlog => nil} %>
