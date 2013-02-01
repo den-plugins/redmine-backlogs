@@ -1,4 +1,5 @@
 require 'redmine'
+require 'redis'
 $redis = Redis.new
 
 # Patches to the Redmine core
