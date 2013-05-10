@@ -31,3 +31,7 @@ module Backlogs
   
   end
 end
+
+unless Version.included_modules.include?(Backlogs::VersionPatch)
+  Version.send(:include, Backlogs::VersionPatch)
+end

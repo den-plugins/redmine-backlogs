@@ -52,3 +52,7 @@ module Backlogs
     end  
   end
 end
+
+unless Issue.included_modules.include?(Backlogs::IssuePatch)
+  Issue.send(:include, Backlogs::IssuePatch)
+end

@@ -6,7 +6,7 @@
 <% end %>
 <div class="backlog_toolbar">
   <p class="contextual">
-    <%= link_to l(:label_feature_new), {:controller => 'custom_issues', :action => 'new', :project_id => @project, :tracker_id => 2, :back_to => @back}, :class => 'b-icon icon-add' %>
+    <%= link_to l(:label_feature_new), {:controller => 'issues', :action => 'new', :project_id => @project, :tracker_id => 2, :back_to => @back}, :class => 'b-icon icon-add' %>
   </p>
   <a class="expand-collapse-all expand">Expand/Collapse All</a>
   <select id="move_items" class="actions">
@@ -25,14 +25,14 @@
       <%= hidden_field_tag 'backlog_r', '' %>
   <% end %>
   <div id="show_accepted_backlogs_container">
-    <% form_for :backlogs, @backlogs, :url => {:controller => "backlogs", :action => "index", :project_id => @project} do |f| %>
+    <% form_for @backlogs, :url => {:controller => "backlogs", :action => "index", :project_id => @project} do |f| %>
         <%= check_box_tag "show_accepted_backlogs", nil, @show_accepted_backlogs, :onchange => "this.form.submit();" %>
         Show accepted backlogs
     <% end %>
   </div>
 
   <div id="show_bugs_container">
-    <% form_for :backlogs, @backlogs, :url => {:controller => "backlogs", :action => "index", :project_id => @project} do |f| %>
+    <% form_for @backlogs, :url => {:controller => "backlogs", :action => "index", :project_id => @project} do |f| %>
         <%= check_box_tag "show_bugs", nil, @show_bugs, :onchange => "this.form.submit();" %>
         Show bugs
     <% end %>
