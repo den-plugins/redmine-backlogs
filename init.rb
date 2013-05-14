@@ -27,9 +27,9 @@ end
 
 Redmine::Plugin.register :redmine_backlogs do
   name 'Redmine Backlogs plugin'
-  author 'Mark Maglana'
+  author 'Mark Maglana, Den'
   description 'Agile/Scrum backlog management tool'
-  version '0.0.1'
+  version 'v0.2.0d'
   
   
   project_module :backlogs do
