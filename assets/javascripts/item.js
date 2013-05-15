@@ -24,11 +24,11 @@
               ITEM CLASS
 ***************************************/
 
-RBL.Item = Class.create(RBL.Model, {
+RBL.Item = $.klass(RBL.Model, {
   initialize: function($super, element, prefix){
     this._prefix = prefix==null ? "item_" : prefix;
     if(element==null){
-      element = $($("item_template").down().cloneNode(true));
+      element = $($("#item_template").down().cloneNode(true));
       element.writeAttribute({id: this._prefix + (new Date).getTime()})
     }
     $super(element);
@@ -415,6 +415,6 @@ RBL.Item = Class.create(RBL.Model, {
 });
 
 // Add class methods
-Object.keys(RBL.ModelClassMethods).each(function(key){
+$.each(Object.keys(RBL.ModelClassMethods), function(key){
   RBL.Item[key] = RBL.ModelClassMethods[key];
 });

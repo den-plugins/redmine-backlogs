@@ -1,7 +1,8 @@
 <% content_for :header_tags do %>
     <%= stylesheet_link_tag 'index', 'item', :plugin => 'redmine_backlogs', :media => 'screen, print' %>
-    <%= javascript_include_tag 'main', 'backlog', 'item', 'task', :plugin => 'redmine_backlogs' %>
     <%= javascript_include_tag "jquery/jquery-1.7.1.min.js", :plugin => 'redmine_backlogs' %>
+    <%= javascript_include_tag "jquery/lowpro.jquery.js", :plugin => 'redmine_backlogs' %>
+    <%= javascript_include_tag 'common', 'main', 'backlog', 'item', 'task', :plugin => 'redmine_backlogs' %>
     <%= javascript_include_tag 'custom_backlog', :plugin => 'redmine_backlogs' %>
 <% end %>
 <div class="backlog_toolbar">
@@ -45,12 +46,12 @@
 <div class="bl_selections">
   <div class="bl_select_l">
     <%= select_tag "sbacklog_l", ["<option value=''>Product Backlogs</option>"] << options_from_collection_for_select((@backlogs - [@backlog_r]), "id", "name", params[:backlog_l].to_i),
-                   :onchange => "setSelectedBacklogs(); $('select_backlog').submit();",
+                   :onchange => "setSelectedBacklogs(); $('#select_backlog').submit();",
                    :style => "margin: 0 0 5px 0;" %>
   </div>
   <div class="bl_select_r">
     <%= select_tag "sbacklog_r", ["<option value=''>Select an Iteration to show</option>"] << options_from_collection_for_select((@backlogs - [@backlog_l]), "id", "name"),
-                   :onchange => "setSelectedBacklogs(); $('select_backlog').submit();",
+                   :onchange => "setSelectedBacklogs(); $('#select_backlog').submit();",
                    :style => "margin: 0 0 5px 0;" %>
   </div>
 </div>
@@ -130,7 +131,7 @@
 <script>
     var projectID = '<%= @project.identifier %>';
     function setSelectedBacklogs() {
-        $('backlog_l').value = $("sbacklog_l").getValue();
-        $('backlog_r').value = $("sbacklog_r").getValue();
+        $('#backlog_l').value = $("#sbacklog_l").getValue();
+        $('#backlog_r').value = $("#sbacklog_r").getValue();
     }
 </script>

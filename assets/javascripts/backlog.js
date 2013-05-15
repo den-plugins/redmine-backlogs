@@ -24,7 +24,7 @@
               BACKLOG CLASS
 ***************************************/
 
-RBL.Backlog = Class.create(RBL.Model, {
+RBL.Backlog = $.klass(RBL.Model, {
   initialize: function($super, element) { 
     this._prefix = "backlog_"
     $super(element);
@@ -56,7 +56,7 @@ RBL.Backlog = Class.create(RBL.Model, {
   
   applyEdits: function(){
     var notAlreadyClosed = !this.isClosed();
-    var status = $("backlog_" + this.getValue(".id") + "_is_closed");
+    var status = $("#backlog_" + this.getValue(".id") + "_is_closed");
     if(notAlreadyClosed && status.value=="true" && this.getOpenItems().length > 0) {
       this.raiseHasOpenItemsError();
       status.selectedIndex = 0;
@@ -229,7 +229,7 @@ RBL.Backlog = Class.create(RBL.Model, {
     var id;
     
     for(var ii = 0; ii<sequence.length; ii++){
-      id = RBL.Item.find($("item_"+sequence[ii])).getValue('.id');
+      id = RBL.Item.find($("#item_"+sequence[ii])).getValue('.id');
       serialized.push(id);
     }
     return serialized;
@@ -456,6 +456,6 @@ RBL.Backlog = Class.create(RBL.Model, {
 });
 
 // Add class methods
-Object.keys(RBL.ModelClassMethods).each(function(key){
+$.each(Object.keys(RBL.ModelClassMethods), function(key){
   RBL.Backlog[key] = RBL.ModelClassMethods[key]; 
 });

@@ -30,15 +30,13 @@ RBL.init = function(){
   });
   RBL.log("Created backlog objects.");
   
-  $("move_items").observe("change", function() { RBL.moveItems(); });
-  $("new_item_button").observe("change", function() { RBL.newItem(); });
-  //$("hide_closed_backlogs").checked = (document.cookie.match(/hide_closed_backlogs=true/)!=null);
-  //$("hide_closed_backlogs").observe("click", function() { RBL.storePreferences(); RBL.processClosedBacklogs() });
+  $("#move_items").observe("change", function() { RBL.moveItems(); });
+  $("#new_item_button").observe("change", function() { RBL.newItem(); });
   
   RBL.log("Backlogs Plugin initialized.");
 }
 
-document.observe("dom:loaded", function() { RBL.init(); });
+$(document).ready(function() { RBL.init(); });
 
 /***************************************
               UTILITIES
@@ -61,7 +59,7 @@ RBL.message = function(message){
 }
 
 RBL.moveItems = function(){
-  var moveTo = $("move_items").value;
+  var moveTo = $("#move_items").value;
   var items  = [];
   
   RBL.Item.findAll().each(function(item){
@@ -70,13 +68,13 @@ RBL.moveItems = function(){
   
   if($(items).size()>0) RBL.Backlog.findByID(moveTo).moveItems(items);
   
-  $("move_items").selectedIndex=0; 
+  $("#move_items").selectedIndex=0; 
 }
 
 RBL.newItem = function(){
   var item = new RBL.Item();
-  item.setValue('div.tracker_id .v', $("new_item_button").value);
-  $("new_item_button").selectedIndex = 0;
+  item.setValue('div.tracker_id .v', $("#new_item_button").value);
+  $("#new_item_button").selectedIndex = 0;
   item.getRoot().hide();
   RBL.Backlog.findByID(0).insert(item);
   item.getRoot().slideDown({ duration: 0.25 });
@@ -98,7 +96,7 @@ RBL.storePreferences = function(){
   var dateToday  = new Date();
   var expiration = new Date(dateToday.setYear(dateToday.getFullYear() + 1));
 
-  document.cookie = "hide_closed_backlogs=" + ($("hide_closed_backlogs").checked ? "true" : "false") + "; " +
+  document.cookie = "hide_closed_backlogs=" + ($("#hide_closed_backlogs").checked ? "true" : "false") + "; " +
                     "expires=" + expiration.toGMTString();
 }
 
@@ -124,7 +122,7 @@ RBL.urlFor = function(options){
               BASE CLASS
 ***************************************/
 
-RBL.Model = Class.create({
+RBL.Model = $.klass({
   initialize: function(element){
     this.setRoot(element);
     this._observers = {};

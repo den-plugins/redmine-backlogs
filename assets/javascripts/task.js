@@ -24,13 +24,13 @@
               TASK CLASS
 ***************************************/
 
-RBL.Task = Class.create(RBL.Item, {
+RBL.Task = $.klass(RBL.Item, {
   initialize: function($super, element, parentItem){
     this._prefix = "task_";
     this._parentItem = parentItem;
     
     if(element==null){
-      element = $("item_template").down().cloneNode(true);
+      element = $("#item_template").down().cloneNode(true);
       element.writeAttribute({id: this._prefix + (new Date).getTime()});
       element.down("div.li_container").addClassName("task");
       element.down("div.li_container").removeClassName("maximized");
@@ -56,6 +56,6 @@ RBL.Task = Class.create(RBL.Item, {
 });
 
 // Add class methods
-Object.keys(RBL.ModelClassMethods).each(function(key){
+$.each(Object.keys(RBL.ModelClassMethods), function(key){
   RBL.Task[key] = RBL.ModelClassMethods[key];
 });

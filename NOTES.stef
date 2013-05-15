@@ -1,0 +1,5 @@
+http://www.lukemelia.com/blog/archives/2008/05/18/5-tips-for-porting-javascript-from-prototype-to-jquery/
+-> #1 tip for Class.create (prototype) to $.klass (jquery) changes
+
+http://andykdocs.de/andykdocs/document/Migrating-from-the-Prototype-JavaScript-Framework-to-jQuery
+-> still at #1: transforming selection of dom elements code from prototype to jquery
