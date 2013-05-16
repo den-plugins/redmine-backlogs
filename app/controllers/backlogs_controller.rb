@@ -9,7 +9,7 @@ class BacklogsController < ApplicationController
     get_hash(@project.id)
     @initial_items = Item.find_by_project(@project)
     @show_bugs = params[:show_bugs] ? params[:show_bugs] : false
-    @all_items = @show_bugs ? @initial_items : @initial_items.reject { |item| item.issue.tracker.name == "Bug" }
+    @all_items = @show_bugs ? @initial_items : @initial_items.reject { |item| item.issue.tracker.name == "Bug" || item.issue.tracker.name == "Support" }
     @item_template = Item.new
     @backlogs = Backlog.find_by_project(@project, (params[:show_accepted_backlogs] ? nil : 3))
     @product_backlog = Backlog.find_product_backlog(@project)
